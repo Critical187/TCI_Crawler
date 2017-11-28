@@ -1,15 +1,47 @@
+// TODO verify if structure acceptable overall
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath 'org.ajoberstar:grgit:2.1.0'
+    }
+}
+
+plugins {
+    id "org.ajoberstar.grgit" version "2.1.0"
+}
+
 group 'tci'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'org.ajoberstar.grgit'
 
 sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-}
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'pl.pragmatists', name: 'JUnitParams', version: '1.0.4'
+}
+
+task commitAndPush {
+    description = 'Pushes current branch\'s committed changes to origin repo.'
+    def grgit = grgit.open(dir:'../.')
+    // TODO sort patterns out.
+    grgit.add(patterns: ['*'])
+    // TODO pass msg as param
+    grgit.commit(message: "This a test 8-)")
+    println 'We gucci'
+    doFirst{
+        println 'Committing boys,watch out'
+    }
+    doLast {
+        grgit.push()
+        grgit.close()
+    }
 }
