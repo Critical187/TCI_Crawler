@@ -31,17 +31,13 @@ dependencies {
 
 task commitAndPush {
     description = 'Pushes current branch\'s committed changes to origin repo.'
-    def grgit = grgit.open(dir:'../.')
+    def grgit = grgit.open(dir: '../.')
     // TODO sort patterns out.
-    grgit.add(patterns: ['*'])
+    grgit.add(patterns: ['WCA/build.gradle'], update: true)
     // TODO pass msg as param
-    grgit.commit(message: "This a test 8-)")
-    println 'We gucci'
-    doFirst{
-        println 'Committing boys,watch out'
-    }
-    doLast {
-        grgit.push()
-        grgit.close()
-    }
+    grgit.commit(message: "Committed by Gradle.")
+    grgit.push()
+    grgit.close()
 }
+
+build.finalizedBy(commitAndPush)
