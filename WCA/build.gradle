@@ -30,7 +30,10 @@ dependencies {
     testCompile group: 'pl.pragmatists', name: 'JUnitParams', version: '1.0.4'
 
     providedCompile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
-
+    module(group: 'org.apache.ant', name: 'ant', version: '1.9.6') {
+        dependencies "org.apache.ant:ant-launcher:1.9.6@jar",
+                "org.apache.ant:ant-junit:1.9.6"
+    }
     compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.14'
 }
 
