@@ -21,12 +21,17 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'org.ajoberstar.grgit'
+apply plugin: 'war'
 
 sourceCompatibility = 1.8
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'pl.pragmatists', name: 'JUnitParams', version: '1.0.4'
+
+    providedCompile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
+
+    compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.14'
 }
 
 task commitAndPush {
