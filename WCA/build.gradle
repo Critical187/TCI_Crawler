@@ -1,27 +1,12 @@
-// TODO verify if structure acceptable overall
-buildscript {
-    repositories {
-        mavenCentral()
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-    }
-    dependencies {
-        classpath 'org.ajoberstar:grgit:2.1.0'
-    }
-}
-
-plugins {
-    id "org.ajoberstar.grgit" version "2.1.0"
-}
-
 group 'tci'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
-apply plugin: 'maven'
-apply plugin: 'org.ajoberstar.grgit'
-apply plugin: 'war'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
 
 sourceCompatibility = 1.8
 
@@ -29,21 +14,5 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'pl.pragmatists', name: 'JUnitParams', version: '1.0.4'
 
-    providedCompile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
-
     compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.14'
-    compile 'org.ajoberstar:grgit:2.1.0'
 }
-
-task commitAndPush {
-    description = 'Pushes current branch\'s committed changes to origin repo.'
-    def grgit = grgit.open(dir: '../.')
-    // TODO sort patterns out.
-    grgit.add(patterns: ['WCA/build.gradle'])
-    // TODO pass msg as param
-    grgit.commit(message: "Committed by Gradle.")
-    grgit.push()
-    grgit.close()
-}
-
-build.finalizedBy(commitAndPush)
