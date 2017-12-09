@@ -1,0 +1,38 @@
+group 'tci'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:3.1.1"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'com.jfrog.artifactory'
+
+jar {
+    baseName = 'gs-rest-service'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'pl.pragmatists', name: 'JUnitParams', version: '1.0.4'
+
+    compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.14'
+    compile 'org.jsoup:jsoup:1.8.1'
+    compile 'org.jfrog.buildinfo:build-info-extractor-gradle:3.1.1'
+}
