@@ -1,9 +1,24 @@
 group 'tci'
 version '1.0-SNAPSHOT'
 
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:3.1.1"
+    }
+}
+
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'com.jfrog.artifactory'
+
+jar {
+    baseName = 'gs-rest-service'
+    version =  '0.1.0'
+}
 
 repositories {
     mavenCentral()

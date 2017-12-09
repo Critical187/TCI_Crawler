@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7f963e78-a0d1-4da9-ae5f-4678e35cb116" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/WCA_main.iml" afterPath="$PROJECT_DIR$/.idea/modules/WCA_main.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/WCA_test.iml" afterPath="$PROJECT_DIR$/.idea/modules/WCA_test.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -44,8 +47,8 @@
       <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="1" lean-forward="false" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+            <state relative-caret-position="629">
+              <caret line="37" column="1" lean-forward="true" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -58,7 +61,7 @@
               <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1512836410427" expanded="true" signature="593:599" ph="{...}" />
+                <marker date="1512837267418" expanded="true" signature="593:599" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -122,6 +125,11 @@
         <entry key="$PROJECT_DIR$">
           <value>
             <list>
+              <ExternalTaskPojo>
+                <option name="description" value="Deploys artifacts + generated build-info metadata to Artifactory, using project publications." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="artifactoryPublish" />
+              </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Displays the components produced by root project 'WCA'. [incubating]" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -264,8 +272,8 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="4536586553313" />
-        <entry key="$PROJECT_DIR$/build.gradle" value="3197137828" />
+        <entry key="$PROJECT_DIR$" value="4536587516273" />
+        <entry key="$PROJECT_DIR$/build.gradle" value="1909391370" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -278,6 +286,42 @@
                   <entry key="$PROJECT_DIR$">
                     <value>
                       <ExternalModuleBuildClasspathPojo>
+                        <option name="entries">
+                          <list>
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jfrog.buildinfo/build-info-extractor-gradle/3.1.1/47e542424f4f6e70ed5fde06ffb52d34d73aebb7/build-info-extractor-gradle-3.1.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jfrog.buildinfo/build-info-extractor-gradle/3.1.1/de220c82dd8cbdcb654d56dcb98323f8d1bf5874/build-info-extractor-gradle-3.1.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.0.1/8ace0a355c375f0d20d04fa0db7b986c6637a689/commons-io-2.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.0.1/7ffdb02f95af1c1a208544e076cea5b8e66e731a/commons-io-2.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.ivy/ivy/2.2.0/312527950ad0e8fbab37228fbed3bf41a6fe0a1/ivy-2.2.0-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.ivy/ivy/2.2.0/f9d1e83e82fc085093510f7d2e77d81d52bc2081/ivy-2.2.0.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.1.1/f3f156cbff0e0fb0d64bfce31a352cce4a33bc19/commons-logging-1.1.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.1.1/5043bfebc3db072ed80fbd362e7caf00e885d8ae/commons-logging-1.1.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-lang/commons-lang/2.4/2b8c4b3035e45520ef42033e823c7d33e4b4402c/commons-lang-2.4-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-lang/commons-lang/2.4/16313e02a793435009f1e458fa4af5d879f6fb11/commons-lang-2.4.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jfrog.buildinfo/build-info-extractor/2.5.1/c7806ccde70129d99d7eaccaa6d7e51fdc196912/build-info-extractor-2.5.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jfrog.buildinfo/build-info-extractor/2.5.1/3a7e258a2e9e0e3baac8dc25c5941374f90ded98/build-info-extractor-2.5.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jfrog.buildinfo/build-info-client/2.5.1/1a2e704aeb741fb913df9be564dd99bddd943ee6/build-info-client-2.5.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jfrog.buildinfo/build-info-client/2.5.1/b536bfb7eb70a626933884a7f159acd7e233fd21/build-info-client-2.5.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/15.0/36b6a585c0f0c63bd85fb04db0dcb7b217298956/guava-15.0-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/15.0/ed727a8d9f247e2050281cb083f1c77b09dcb5cd/guava-15.0.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.thoughtworks.xstream/xstream/1.3.1/f09156aed20bc9a091d09fb5dff3db97c0c8f059/xstream-1.3.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.thoughtworks.xstream/xstream/1.3.1/c23741bfc42efa760c6acdb90a131814c70aeb8d/xstream-1.3.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.8/ea7b97bfc46dc4b28bc53af3e530199a657933bf/commons-codec-1.8-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.8/af3be3f74d25fc5163b54f56a0d394b462dafafd/commons-codec-1.8.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.jackson/jackson-mapper-asl/1.9.12/446f3d18401f02ac6741ff980d1a7566786936c/jackson-mapper-asl-1.9.12-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.jackson/jackson-mapper-asl/1.9.12/8b290aae44213e2f6da00c07af59b0d442068f4d/jackson-mapper-asl-1.9.12.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.2.5/55d345272944d7e8dace47925336a3764ee0e24b/httpclient-4.2.5-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.2.5/666e26e76f2e87d84e4f16acb546481ae1b8e9a6/httpclient-4.2.5.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jfrog.buildinfo/build-info-api/2.5.1/138b448390717b704b93a8c22fd02dcf5a449910/build-info-api-2.5.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jfrog.buildinfo/build-info-api/2.5.1/b0c2e8136c3b842c112b3eed8cbfada34dd6d7f2/build-info-api-2.5.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.jackson/jackson-core-asl/1.9.12/ed7928072c458d8576c969cc491af707151492fb/jackson-core-asl-1.9.12-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.jackson/jackson-core-asl/1.9.12/ecfc6f73a841c4c3c653b59651a3f9d5f1286469/jackson-core-asl-1.9.12.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.2.4/c3ffe3a73348645042fb0b06303b6a3de194494e/httpcore-4.2.4-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.2.4/3b7f38df6de5dd8b500e602ae8c2dd5ee446f883/httpcore-4.2.4.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/xpp3/xpp3_min/1.1.4c/fffe25ec1f20ec1cfdc0edd41c6e0d55bc0dbaf5/xpp3_min-1.1.4c-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/xpp3/xpp3_min/1.1.4c/19d4e90b43059058f6e056f794f0ea4030d60b86/xpp3_min-1.1.4c.jar" />
+                          </list>
+                        </option>
                         <option name="path" value="$PROJECT_DIR$" />
                       </ExternalModuleBuildClasspathPojo>
                     </value>
@@ -598,11 +642,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6079000" />
+    <option name="totallyTimeSpent" value="6140000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -783,7 +826,7 @@
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1512836410427" expanded="true" signature="593:599" ph="{...}" />
+            <marker date="1512837267418" expanded="true" signature="593:599" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -831,7 +874,7 @@
           <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1512836410427" expanded="true" signature="593:599" ph="{...}" />
+            <marker date="1512837267418" expanded="true" signature="593:599" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -852,7 +895,7 @@
           <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1512836410427" expanded="true" signature="593:599" ph="{...}" />
+            <marker date="1512837267418" expanded="true" signature="593:599" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -874,7 +917,7 @@
           <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1512836410427" expanded="true" signature="593:599" ph="{...}" />
+            <marker date="1512837267418" expanded="true" signature="593:599" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -893,7 +936,7 @@
           <caret line="3" column="17" lean-forward="false" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1512836410427" expanded="true" signature="593:599" ph="{...}" />
+            <marker date="1512837267418" expanded="true" signature="593:599" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -965,8 +1008,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="1" lean-forward="false" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+        <state relative-caret-position="629">
+          <caret line="37" column="1" lean-forward="true" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -977,7 +1020,7 @@
           <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1512836410427" expanded="true" signature="593:599" ph="{...}" />
+            <marker date="1512837267418" expanded="true" signature="593:599" ph="{...}" />
           </folding>
         </state>
       </provider>
