@@ -12,4 +12,9 @@ public class HelloIntegrationTest {
     public void testHello() throws Exception {
         Assert.assertTrue(true);
     }
+
+    @Test
+    public void testNotHello() throws Exception {
+        Assert.assertTrue(true);
+    }
 }
