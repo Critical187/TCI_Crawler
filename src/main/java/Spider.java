@@ -7,7 +7,7 @@ public class Spider {
     private static final int MAX_PAGES_TO_SEARCH = 20;
     private Set<String> pagesVisited = new HashSet<String>();
     private List<String> pagesToVisit = new LinkedList<String>();
-    public int id = 0;
+    private int id = 0;
 
     /**
      * Our main launching point for the Spider's functionality. Internally it creates spider legs

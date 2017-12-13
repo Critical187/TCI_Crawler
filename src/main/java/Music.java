@@ -1,8 +1,8 @@
 public class Music extends Base {
-    public String artist;
+    private String artist;
 
-    public Music(String genre, String year, String format, String artist) {
-        super(genre, year, format);
+    public Music(String name, String genre, String year, String format, String artist) {
+        super(name, genre, year, format);
         this.artist = artist;
     }
 }

@@ -1,4 +1,4 @@
-public class SpiderTest
+public class SpiderMain
 {
     /**
      * This is our test. It creates a spider (which creates spider legs) and crawls the web.

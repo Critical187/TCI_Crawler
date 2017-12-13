@@ -71,7 +71,7 @@ public class SpiderLeg
         }
     }
 
-    public void FillBook(Element elm){
+    private void FillBook(Element elm){
         for(Element e : elm.children()){
             System.out.println(e.text() + " ------------");
         }

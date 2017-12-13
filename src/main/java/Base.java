@@ -1,9 +1,11 @@
 public abstract class Base {
-    protected String genre;
-    String year;
-    String format;
+    private String genre;
+    private String year;
+    private String format;
+    private String name;
 
-    public Base(String genre, String year, String format){
+    public Base(String name, String genre, String year, String format){
+        this.name = name;
         this.genre = genre;
         this.format = format;
         this.year = year;
