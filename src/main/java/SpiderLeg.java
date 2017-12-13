@@ -48,10 +48,12 @@ public class SpiderLeg
             }
             Elements linksOnPage = htmlDocument.select("a[href]");
             Elements tables = htmlDocument.select("table");
+            System.out.println(tables.size() + " ---------");
             for(Element tb : tables){
                 for(Element e : tb.children()){
-                    if(e.text().equals("tr")){
-                        System.out.println(e.child(1).text());
+                    if(e.text().equals("Books")){
+                        FillBook(tb);
+                        break;
                     }
                 }
             }
@@ -66,6 +68,12 @@ public class SpiderLeg
         {
             // We were not successful in our HTTP request
             return false;
+        }
+    }
+
+    public void FillBook(Element elm){
+        for(Element e : elm.children()){
+            System.out.println(e.text() + " ------------");
         }
     }
 
