@@ -19,35 +19,33 @@
 
     {
 
-      "name":"Office Space",
+      "name":"Forest Gump",
 
-      "genre":"Comedy",
+      "genre":"Drama",
 
-      "format":"Blu-ray",
+      "format":"DVD",
 
-      "year":1999,
+      "year":1994,
 
-      "director":"Mike Judge",
+      "director":"Robert Zemeckis",
 
       "writers":[
 
-        "William Goldman"
+        "Winston Groom",
+
+        "Eric Roth"
 
       ],
 
       "stars":[
 
-        "Ron Livingston",
+        "Tom Hanks",
 
-        "Jennifer Aniston",
+        "Rebecca Williams",
 
-        "David Herman",
+        "Sally Field",
 
-        "Ajay Naidu",
-
-        "Diedrich Bader",
-
-        "Stephen Root"
+        "Michael Conner Humphreys"
 
       ]
 
