@@ -1,0 +1,96 @@
+{
+"WebCrawlerDetails":{
+
+  "id": 4,
+
+  "time_elapsed": "2s",
+
+  "pages_explored": 5,
+
+  "search_depth":3
+
+},
+
+  "id": 3,
+
+  "time":1499696751,
+
+  "movies":[
+
+    {
+
+      "name":"Office Space",
+
+      "genre":"Comedy",
+
+      "format":"Blu-ray",
+
+      "year":1999,
+
+      "director":"Mike Judge",
+
+      "writers":[
+
+        "William Goldman"
+
+      ],
+
+      "stars":[
+
+        "Ron Livingston",
+
+        "Jennifer Aniston",
+
+        "David Herman",
+
+        "Ajay Naidu",
+
+        "Diedrich Bader",
+
+        "Stephen Root"
+
+      ]
+
+    }
+
+  ],
+
+  "books":[
+
+    {
+
+      "name":"The Clean Coder: A Code of Conduct for Professional Programmers",
+
+      "genre":"Tech",
+
+      "format":"Audio",
+
+      "year":2011,
+
+      "authors":"Robert C.Martin",
+
+      "publisher":"Prentice Hall",
+
+      "ISBN":"007-6092046981"
+
+    }
+
+  ],
+
+  "music":[
+
+    {
+
+      "name":"Beethoven: Complete Symphonies",
+
+      "format":"CD",
+
+      "year":2012,
+
+      "artist":"Ludwig van Beethoven"
+
+    }
+
+  ]
+
+}
