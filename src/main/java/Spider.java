@@ -1,12 +1,9 @@
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Spider {
-    private static final int MAX_PAGES_TO_SEARCH = 20;
-    private Set<String> pagesVisited = new HashSet<String>();
-    private List<String> pagesToVisit = new LinkedList<String>();
+    private List<String> pagesVisited = new ArrayList<>();
+    private List<String> pagesToVisit = new ArrayList<>();
+    private List<Base> retrievedObjects = new ArrayList<>();
     private int id = 0;
 
     /**
@@ -16,42 +13,23 @@ public class Spider {
      * @param url        - The starting point of the spider
      * @param searchWord - The word or string that you are searching for
      */
-    public void search(String url, String searchWord) {
-        while (this.pagesVisited.size() < MAX_PAGES_TO_SEARCH) {
-            String currentUrl;
+    public List<Base> search(String url, String searchWord) {
+        pagesToVisit.add(url);
+        while (!pagesToVisit.isEmpty()) {
+            String currentUrl = this.pagesToVisit.get(0);
             SpiderLeg leg = new SpiderLeg();
-            if (this.pagesToVisit.isEmpty()) {
-                currentUrl = url;
-                this.pagesVisited.add(url);
-            } else {
-                currentUrl = this.nextUrl();
+            BaseWithLinks baseWithLinks = leg.crawlAndGather(currentUrl);
+            if (baseWithLinks.getRetrievedObject() != null) {
+                this.retrievedObjects.add(baseWithLinks.getRetrievedObject());
             }
-            leg.crawl(currentUrl); // Lots of stuff happening here. Look at the crawl method in
-            // SpiderLeg
-            boolean success = leg.searchForWord(searchWord);
-            if (success) {
-                System.out.println(String.format("**Success** Word %s found at %s", searchWord, currentUrl));
-                break;
+            this.pagesVisited.add(currentUrl);
+            this.pagesToVisit.remove(0);
+            for (String newUrl : baseWithLinks.getRetrievedLinks()) {
+                if (!this.pagesVisited.contains(newUrl) && !pagesToVisit.contains(newUrl)) {
+                    pagesToVisit.add(newUrl);
+                }
             }
-            this.pagesToVisit.addAll(leg.getLinks());
         }
-        id++;
-        System.out.println("\n**Done** Visited " + this.pagesVisited.size() + " web page(s)");
-    }
-
-
-    /**
-     * Returns the next URL to visit (in the order that they were found). We also do a check to make
-     * sure this method doesn't return a URL that has already been visited.
-     *
-     * @return
-     */
-    private String nextUrl() {
-        String nextUrl;
-        do {
-            nextUrl = this.pagesToVisit.remove(0);
-        } while (this.pagesVisited.contains(nextUrl));
-        this.pagesVisited.add(nextUrl);
-        return nextUrl;
+        return this.retrievedObjects;
     }
 }

@@ -9,6 +9,6 @@ public class SpiderMain
     public static void main(String[] args)
     {
         Spider spider = new Spider();
-        spider.search("http://i315379.hera.fhict.nl","killme");
+        spider.search("http://i315379.hera.fhict.nl/","killme");
     }
 }

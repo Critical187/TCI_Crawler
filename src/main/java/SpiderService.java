@@ -12,8 +12,10 @@ import java.net.URL;
 @Singleton
 public class SpiderService {
 
-    public SpiderService(){
+    private final Spider spider;
 
+    public SpiderService() {
+        this.spider = new Spider();
     }
 
     @GET
@@ -21,7 +23,6 @@ public class SpiderService {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response crawlWebsite(URL url){
-
         return Response.serverError().build();
     }
     @GET
