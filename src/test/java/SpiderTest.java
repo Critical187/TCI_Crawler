@@ -17,12 +17,12 @@ public class SpiderTest {
     @Test
     public void testCrawlingForSpecificMovie(){
         Movie expectedRes = new Movie("The Lord of the Rings: The Fellowship of the Ring",
-                "Drama", "Blu-ray", "2001", "Peter Jackson",
+                "Drama", "2001", "Blu-ray", "Peter Jackson",
                 new String[]{"J.R.R. Tolkien", "Fran Walsh", "Philippa Boyens", "Peter Jackson"},
                 new String[]{"Ron Livingston", "Jennifer Aniston", "David Herman", "Ajay Naidu", "Diedrich Bader", "Stephen Root"});
 
         Movie actualRes = new Movie("The Lord of the Rings: The Fellowship of the Ring",
-                "Drama", "Blu-ray", "2001", "Peter Jackson",
+                "Drama", "2001", "Blue-ray", "Peter Jackson",
                 new String[]{"J.R.R. Tolkien", "Fran Walsh", "Philippa Boyens", "Peter Jackson"},
                 new String[]{"Ron Livingston", "Jennifer Aniston", "David Herman", "Ajay Naidu", "Diedrich Bader", "Stephen Root"});
 
@@ -31,12 +31,28 @@ public class SpiderTest {
 
     @Test
     public void testCrawlingForSpecificMusic(){
+        Music expectedRes = new Music("The Very Thought of You", "Jaz", "MP3",
+                "2008", "Nat King Cole\n");
 
+        Music actualRes = new Music("The Very Thought of You", "Jaz", "MP3",
+                "2008", "Nat King Cole\n");
+
+        assertThat(actualRes,samePropertyValuesAs(expectedRes));
     }
 
     @Test
     public void testCrawlingForSpecificBook(){
+        Book expectedRes = new Book("A Design Patterns: Elements of Reusable Object-Oriented Software",
+                "Tech", "Paperback", "1994",
+                new String[]{"Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"},
+                "978-0201633610", "Prentice Hall");
 
+        Book actualRes = new Book("A Design Patterns: Elements of Reusable Object-Oriented Software",
+                "Tech", "Paperback", "1994",
+                new String[]{"Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"},
+                "978-0201633610", "Prentice Hall");
+
+        assertThat(actualRes,samePropertyValuesAs(expectedRes));
     }
 
     @Test
