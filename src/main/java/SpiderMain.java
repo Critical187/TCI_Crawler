@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class SpiderMain
 {
     /**
@@ -9,6 +11,6 @@ public class SpiderMain
     public static void main(String[] args)
     {
         Spider spider = new Spider();
-        spider.search("http://i315379.hera.fhict.nl/","killme");
+        List<Base> b = spider.search("http://i315379.hera.fhict.nl/","Office Space");
     }
 }

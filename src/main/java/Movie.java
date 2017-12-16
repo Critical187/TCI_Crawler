@@ -1,12 +1,25 @@
 public class Movie extends Base {
-    private String director;
-    private String[] writers;
-    private String[] stars;
+
+    private final String director;
+    private final String[] writers;
+    private final String[] stars;
 
     public Movie(String name, String genre, int year, String format, String director, String[] writers, String[] stars) {
         super(name, genre, year, format);
         this.director = director;
         this.writers = writers;
         this.stars = stars;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public String[] getWriters() {
+        return writers;
+    }
+
+    public String[] getStars() {
+        return stars;
     }
 }

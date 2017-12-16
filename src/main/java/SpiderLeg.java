@@ -13,7 +13,7 @@ public class SpiderLeg {
     private static final String USER_AGENT =
             "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/13.0.782.112 Safari/535.1";
 
-    public BaseWithLinks crawlAndGather(String url) {
+    public BaseWithLinks crawlAndGather(String url, String titleToSearchFor) {
         try {
             Connection connection = Jsoup.connect(url).userAgent(USER_AGENT);
             Document htmlDocument = connection.get();
@@ -23,13 +23,10 @@ public class SpiderLeg {
             }
             Elements linksOnPage = htmlDocument.select("a[href]");
             Elements allTables = htmlDocument.select("div.media-details");
-            if (allTables.size() != 1) {
-                // TODO null as param?
-                return new BaseWithLinks(null,this.getValidLinks(linksOnPage));
-            }
-            Element detailsTable = allTables.get(0);
-            Map<String, String> dictionary = this.getDetails(detailsTable);
-            return new BaseWithLinks(this.processDetails(dictionary), this.getValidLinks(linksOnPage));
+            return allTables.size() == 1
+                    ? new BaseWithLinks(this.processDetails(this.getDetails(allTables.get(0))), this.getValidLinks(linksOnPage)) :
+                    // TODO null as param?
+                    new BaseWithLinks(null, this.getValidLinks(linksOnPage));
         } catch (IOException ioe) {
             // We were not successful in our HTTP request
             // TODO propagate exception to controller. remove return null statement.
@@ -55,7 +52,7 @@ public class SpiderLeg {
                 .getElementsByTag("td").stream().map(Element::text).collect(Collectors.toList());
         Map<String, String> dictionary = new HashMap<>();
         if (tableDefinitions.size() != tableValues.size()) {
-            // TODO throw exception.
+            // TODO throw exception. or we assume that its always equal since we work with specific site.
         }
         dictionary.put("Title", stringTitle);
         for (int i = 0; i < tableDefinitions.size(); i++) {
