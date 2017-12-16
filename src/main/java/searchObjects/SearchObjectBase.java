@@ -1,11 +1,13 @@
-public abstract class Base {
+package searchObjects;
+
+public abstract class SearchObjectBase {
 
     private final String genre;
     private final int year;
     private final String format;
     private final String name;
 
-    public Base(String name, String genre, int year, String format) {
+    public SearchObjectBase(String name, String genre, int year, String format) {
         this.name = name;
         this.genre = genre;
         this.format = format;

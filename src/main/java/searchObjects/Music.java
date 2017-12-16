@@ -1,4 +1,6 @@
-public class Music extends Base {
+package searchObjects;
+
+public class Music extends SearchObjectBase {
 
     private final String artist;
 

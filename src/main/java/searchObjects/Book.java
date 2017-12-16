@@ -1,4 +1,6 @@
-public class Book extends Base {
+package searchObjects;
+
+public class Book extends SearchObjectBase {
 
     private final String[] authors;
     private final String isbn;

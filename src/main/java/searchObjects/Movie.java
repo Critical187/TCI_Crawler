@@ -1,4 +1,6 @@
-public class Movie extends Base {
+package searchObjects;
+
+public class Movie extends SearchObjectBase {
 
     private final String director;
     private final String[] writers;
