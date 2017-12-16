@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class SearchObjectHandler {
 
-    public SearchObjectBase GetSearchObjects(Document htmlDocument) throws InvalidCategoryException {
+    public SearchObjectBase getSearchObjects(Document htmlDocument) throws InvalidCategoryException {
         Elements allTables = htmlDocument.select("div.media-details");
         return allTables.size() == 1
                 ? this.processDetails(this.getDetails(allTables.get(0)))

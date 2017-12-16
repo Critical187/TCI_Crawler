@@ -36,8 +36,8 @@ public class SpiderLeg {
                 throw new InvalidSiteException(String.format("Could not establish connection to URL '%s'.", url));
             }
 
-            SearchObjectBase foundObject = this.searchObjectHandler.GetSearchObjects(htmlDocument);
-            List<String> validLinks = this.linksHandler.GetValidLinks(htmlDocument);
+            SearchObjectBase foundObject = this.searchObjectHandler.getSearchObjects(htmlDocument);
+            List<String> validLinks = this.linksHandler.getValidLinks(htmlDocument);
             return new SearchObjectWithLinks(foundObject, validLinks);
         } catch (IOException ioe) {
             throw new InvalidSiteException(String.format("Could not establish connection to URL '%s'.", url));

@@ -11,7 +11,7 @@ public class LinksHandler {
 
     private final List<String> forbiddenLinks = Arrays.asList("facebook", "twitter");
 
-    public List<String> GetValidLinks(Document htmlDocument) {
+    public List<String> getValidLinks(Document htmlDocument) {
         Elements linksOnPage = htmlDocument.select("a[href]");
         return linksOnPage
                 .stream()
