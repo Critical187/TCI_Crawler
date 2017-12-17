@@ -40,7 +40,7 @@ public class Spider {
         }
         long elapsedTime = System.currentTimeMillis() - startTime;
 
-        return new SearchResult(this.retrievedObjects, elapsedTime);
+        return new SearchResult(new ArrayList<>(this.retrievedObjects), elapsedTime);
     }
 
     public void clear() {

@@ -3,6 +3,7 @@ package TCI_Crawler.service;
 import TCI_Crawler.crawler.Spider;
 import TCI_Crawler.dto.SearchResult;
 import TCI_Crawler.searchObjects.Book;
+import com.owlike.genson.Genson;
 
 import javax.inject.Singleton;
 import javax.ws.rs.*;
@@ -28,7 +29,10 @@ public class SpiderService {
             String fullURL = "http://"+url+"/";
             SearchResult searchResult = this.spider.search(fullURL, null);
             this.spider.clear();
-            return Response.ok(searchResult).build();
+            Book book = new Book("h","Disney",3,"",new String[]{"Yui Kiahu"},"Camagochi","Kahhh");
+            Genson genson = new Genson();
+            String bookie = genson.serialize(searchResult);
+            return Response.ok(bookie).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }

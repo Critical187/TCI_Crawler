@@ -13,9 +13,7 @@ public class Book extends SearchObjectBase {
         this.publisher = publisher;
     }
 
-    public String[] getAuthors() {
-        return authors;
-    }
+
 
     public String getIsbn() {
         return isbn;
@@ -23,5 +21,8 @@ public class Book extends SearchObjectBase {
 
     public String getPublisher() {
         return publisher;
+    }
+    public String[] getAuthors() {
+        return authors;
     }
 }
