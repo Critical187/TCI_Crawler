@@ -1,6 +1,6 @@
-import searchObjects.Book;
-import searchObjects.Movie;
-import searchObjects.Music;
+import TCI_Crawler.searchObjects.Book;
+import TCI_Crawler.searchObjects.Movie;
+import TCI_Crawler.searchObjects.Music;
 import org.junit.*;
 
 //import static org.hamcrest.Matchers.samePropertyValuesAs;

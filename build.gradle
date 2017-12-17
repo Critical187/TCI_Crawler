@@ -16,7 +16,7 @@ apply plugin: 'idea'
 apply plugin: 'com.jfrog.artifactory'
 
 jar {
-    baseName = 'gs-rest-service'
+    baseName = 'gs-rest-TCI_Crawler.service'
     version =  '0.1.0'
 }
 
