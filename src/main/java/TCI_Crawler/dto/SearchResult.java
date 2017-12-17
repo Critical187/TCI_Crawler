@@ -2,9 +2,10 @@ package TCI_Crawler.dto;
 
 import TCI_Crawler.searchObjects.SearchObjectBase;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class SearchResult {
+public class SearchResult implements Serializable {
 
     private final List<SearchObjectBase> retrievedObjects;
     private final long time;

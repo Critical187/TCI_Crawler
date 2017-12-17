@@ -1,8 +1,9 @@
 package TCI_Crawler.searchObjects;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class SearchObjectWithLinks {
+public class SearchObjectWithLinks implements Serializable{
 
     private final SearchObjectBase retrievedObject;
     private final List<String> retrievedLinks;

@@ -2,6 +2,7 @@ package TCI_Crawler.service;
 
 import TCI_Crawler.crawler.Spider;
 import TCI_Crawler.dto.SearchResult;
+import TCI_Crawler.searchObjects.Book;
 
 import javax.inject.Singleton;
 import javax.ws.rs.*;
@@ -24,7 +25,8 @@ public class SpiderService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response crawlWebsite(@PathParam("url") String url) {
         try {
-            SearchResult searchResult = this.spider.search(url, null);
+            String fullURL = "http://"+url+"/";
+            SearchResult searchResult = this.spider.search(fullURL, null);
             this.spider.clear();
             return Response.ok(searchResult).build();
         } catch (Exception e) {

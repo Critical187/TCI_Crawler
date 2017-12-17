@@ -37,4 +37,5 @@ dependencies {
     compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.14'
     compile 'org.jsoup:jsoup:1.8.1'
     compile 'org.jfrog.buildinfo:build-info-extractor-gradle:3.1.1'
+    compile group: 'com.owlike', name: 'genson', version: '0.94'
 }
