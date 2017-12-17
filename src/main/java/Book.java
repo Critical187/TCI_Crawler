@@ -1,11 +1,11 @@
 public class Book extends Base {
-    String author;
-    String isbn;
-    String publisher;
+    private String[] authors;
+    private String isbn;
+    private String publisher;
 
-    public Book(String genre, String year, String format, String author, String isbn, String publisher) {
-        super(genre, year, format);
-        this.author = author;
+    public Book(String name, String genre, String year, String format, String[] authors, String isbn, String publisher) {
+        super(name, genre, year, format);
+        this.authors = authors;
         this.isbn = isbn;
         this.publisher = publisher;
     }
