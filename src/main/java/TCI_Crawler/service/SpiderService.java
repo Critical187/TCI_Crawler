@@ -1,4 +1,4 @@
-package TCI_Crawler;
+package TCI_Crawler.service;
 
 import TCI_Crawler.crawler.Spider;
 import TCI_Crawler.dto.SearchResult;
@@ -8,7 +8,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("crawlService")
+@Path("spiderservice")
 @Singleton
 public class SpiderService {
 
@@ -52,4 +52,6 @@ public class SpiderService {
     public Response sayHello() {
         return Response.ok("Wasup.").build();
     }
+
+
 }
