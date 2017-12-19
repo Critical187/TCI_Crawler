@@ -11,7 +11,7 @@ public class ConversionUtil {
     private Genson genson;
     static private ConversionUtil instance;
     static public ConversionUtil getConversionUtil(){if(instance == null){instance = new ConversionUtil();} return instance;}
-    public ConversionUtil(){
+    private ConversionUtil(){
        genson = new  Genson();
     }
     public String ConvertToString(HttpEntity entity) throws IOException{

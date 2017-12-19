@@ -61,8 +61,8 @@ dependencies {
     compile 'org.jfrog.buildinfo:build-info-extractor-gradle:3.1.1'
     compile group: 'com.owlike', name: 'genson', version: '0.94'
     integrationTestCompile 'org.assertj:assertj-core:3.0.0'
-    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.4'
-    compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.8'
+    integrationTestCompile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.4'
+    integrationTestCompile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.8'
 
 
 }
