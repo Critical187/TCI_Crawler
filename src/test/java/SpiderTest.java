@@ -2,11 +2,12 @@ import TCI_Crawler.searchObjects.Book;
 import TCI_Crawler.searchObjects.Movie;
 import TCI_Crawler.searchObjects.Music;
 import org.junit.*;
-
-//import static org.hamcrest.Matchers.samePropertyValuesAs;
-// import static org.hamcrest.MatcherAssert.assertThat;
-// import static org.hamcrest.Matchers.is;
-// import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.samePropertyValuesAs;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 
 
 
@@ -14,7 +15,6 @@ public class SpiderTest {
 
     @Test
     public void testCrawlingForEntireWebsite(){
-
     }
 
     @Test
