@@ -19,13 +19,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+<<<<<<< HEAD
 public class LinksHandlerTest {
 
+=======
+
+
+public class LinksHandlerTest {
+
+    @Mock
+    private List<String> forbiddenLinks;
+
+    @Mock
+    private Document mDoc;
+
+>>>>>>> cda868dfb7695fcc7a30c2f3019a8aa813c17b34
     @InjectMocks
     private LinksHandler links;
 
     @Before
     public void setUp() throws Exception {
+<<<<<<< HEAD
         MockitoAnnotations.initMocks(this);
     }
 
@@ -78,5 +92,21 @@ public class LinksHandlerTest {
                 "http://i315379.hera.fhict.nl/catalog.php?cat=books",
                 "http://i315379.hera.fhict.nl/catalog.php?cat=movies");
         assertEquals(expectedLinks, validLinks);
+=======
+        forbiddenLinks = Arrays.asList("movies");
+        MockitoAnnotations.initMocks(this);
+        File path = new File(System.getProperty("user.dir") + "/TestPages/TestPage.html");
+        mDoc = Jsoup.parse(path, "UTF-8", "http://i315379.hera.fhict.nl/");
+    }
+
+    @Test
+    public void testGetValidLinks() throws Exception {
+        List<String> els = links.getValidLinks(mDoc);
+        List<String> validLinks = Arrays.asList(
+                "http://i315379.hera.fhict.nl/catalog.php",
+                "http://i315379.hera.fhict.nl/catalog.php?cat=books",
+                "http://i315379.hera.fhict.nl/catalog.php?cat=movies");
+        assertEquals(validLinks, els);
+>>>>>>> cda868dfb7695fcc7a30c2f3019a8aa813c17b34
     }
 }
