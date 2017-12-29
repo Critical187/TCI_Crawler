@@ -17,6 +17,7 @@ public class LinksHandler {
                 .stream()
                 .map(x -> x.absUrl("href"))
                 .filter(x -> this.forbiddenLinks.stream().noneMatch(x::contains))
+                .distinct()
                 .collect(Collectors.toList());
     }
 }
