@@ -47,8 +47,8 @@ public class SearchObjectHandler {
                         year,
                         format,
                         dictionary.get("Director"),
-                        dictionary.get("Writers").split(", "),
-                        dictionary.get("Stars").split(", "));
+                        dictionary.get("Writers").split(","),
+                        dictionary.get("Stars").split(","));
             case "Books":
                 return new Book(
                         name,
