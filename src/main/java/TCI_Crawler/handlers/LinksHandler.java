@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class LinksHandler {
 
-    private List<String> forbiddenLinks = Arrays.asList("facebook", "twitter");
+    private final List<String> forbiddenLinks = Arrays.asList("facebook", "twitter");
 
     public List<String> getValidLinks(Document htmlDocument) {
         Elements linksOnPage = htmlDocument.select("a[href]");
