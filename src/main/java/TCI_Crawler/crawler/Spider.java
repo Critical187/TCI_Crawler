@@ -46,8 +46,7 @@ public class Spider {
         }
         long elapsedTime = System.currentTimeMillis() - startTime;
 
-        return titleToSearchFor == null ? new ListSearchResult(new ArrayList<>(this.retrievedObjects), elapsedTime) :
-                new SingleSearchResult(this.retrievedObjects.isEmpty() ? null : this.retrievedObjects.get(0), elapsedTime);
+        return new SearchResult(this.retrievedObjects, elapsedTime);
     }
 
     public void clear() {
