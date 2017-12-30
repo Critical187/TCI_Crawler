@@ -2,10 +2,7 @@ import com.owlike.genson.Genson;
 import org.apache.http.HttpEntity;
 import org.apache.http.util.EntityUtils;
 
-import javax.swing.text.html.parser.Entity;
-import javax.ws.rs.core.Response;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class ConversionUtil {
     private Genson genson;

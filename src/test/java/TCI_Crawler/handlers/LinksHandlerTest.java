@@ -1,6 +1,6 @@
 package TCI_Crawler.handlers;
 
-import org.jsoup.Jsoup;
+import TCI_Crawler.TestUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.jsoup.nodes.Document;
@@ -19,39 +19,39 @@ public class LinksHandlerTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"<html><body>" +
-                        "<a href=\"http://i315379.hera.fhict.nl/catalog.php\">Personal Media Library</a>" +
-                        "<a href=\"http://i315379.hera.fhict.nl/catalog.php?cat=books\">Books</a>" +
-                        "<a href=\"http://i315379.hera.fhict.nl/catalog.php?cat=movies\">Movies</a>" +
-                        "</body></html>",
+                {
+                        Arrays.asList(
+                                "http://i315379.hera.fhict.nl/catalog.php",
+                                "http://i315379.hera.fhict.nl/catalog.php?cat=books",
+                                "http://i315379.hera.fhict.nl/catalog.php?cat=movies"),
                         3,
                         Arrays.asList(
                                 "http://i315379.hera.fhict.nl/catalog.php",
                                 "http://i315379.hera.fhict.nl/catalog.php?cat=books",
                                 "http://i315379.hera.fhict.nl/catalog.php?cat=movies")
                 },
-                {"<html><body>" +
-                        "<a href=\"http://i315379.hera.fhict.nl/catalog.php\">Personal Media Library</a>" +
-                        "<a href=\"http://i315379.hera.fhict.nl/catalog.php?cat=movies\">Movies</a>" +
-                        "<a href=\"http://i315379.hera.fhict.nl/catalog.php?cat=movies\">Movies</a>" +
-                        "</body></html>",
+                {
+                        Arrays.asList(
+                                "http://i315379.hera.fhict.nl/catalog.php",
+                                "http://i315379.hera.fhict.nl/catalog.php?cat=movies",
+                                "http://i315379.hera.fhict.nl/catalog.php?cat=movies"),
                         2,
                         Arrays.asList(
                                 "http://i315379.hera.fhict.nl/catalog.php",
                                 "http://i315379.hera.fhict.nl/catalog.php?cat=movies")
                 },
-                {"<html><body>" +
-                        "<a href=\"http://i315379.hera.fhict.nl/catalog.php\">Personal Media Library</a>" +
-                        "<a href=\"http://facebook.com\">Facebook</a>" +
-                        "<a href=\"http://twitter.com\">Twitter</a>" +
-                        "</body></html>",
+                {
+                        Arrays.asList(
+                                "http://i315379.hera.fhict.nl/catalog.php",
+                                "http://facebook.com",
+                                "http://twitter.com"),
                         1,
                         Arrays.asList("http://i315379.hera.fhict.nl/catalog.php")
                 }
         });
     }
 
-    private final String htmlString;
+    private final Document htmlDocument;
     private final int expectedArraySize;
     private final List<String> expectedLinks;
 
@@ -64,17 +64,21 @@ public class LinksHandlerTest {
         this.links = new LinksHandler();
     }
 
-    public LinksHandlerTest(String htmlString, int expectedArraySize, List<String> expectedLinks) {
-        this.htmlString = htmlString;
+    public LinksHandlerTest(List<String> linksToParse, int expectedArraySize, List<String> expectedLinks) {
+        this.htmlDocument = TestUtils.LinksToHtmlDocument(linksToParse);
         this.expectedArraySize = expectedArraySize;
         this.expectedLinks = expectedLinks;
     }
 
     @Test
     public void testGetValidLinks() {
-        Document htmlDoc = Jsoup.parse(this.htmlString);
-        List<String> validLinks = this.links.getValidLinks(htmlDoc);
-        assertArrayEquals(this.expectedLinks.toArray(), validLinks.toArray());
+        List<String> validLinks = this.links.getValidLinks(this.htmlDocument);
+
+        // Assert that the array size of the retrieved links is as expected.
         assertEquals(this.expectedArraySize, validLinks.size());
+        // Assert that the retrieved links are equal to the expected links.
+        assertArrayEquals(this.expectedLinks.toArray(), validLinks.toArray());
+        // Assert that there are no forbidden links in the retrieved links.
+        assertFalse(LinksHandler.forbiddenLinks.stream().anyMatch(validLinks::contains));
     }
 }
