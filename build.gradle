@@ -64,7 +64,7 @@ dependencies {
     integrationTestCompile 'org.assertj:assertj-core:3.0.0'
     integrationTestCompile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.4'
     integrationTestCompile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.8'
-
+    compile group: 'org.apache.jmeter', name: 'ApacheJMeter', version: '3.2'
 
 }
 task integrationTest(type: Test) {
