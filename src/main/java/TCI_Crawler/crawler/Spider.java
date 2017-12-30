@@ -1,8 +1,6 @@
 package TCI_Crawler.crawler;
 
-import TCI_Crawler.dto.ListSearchResult;
 import TCI_Crawler.dto.SearchResult;
-import TCI_Crawler.dto.SingleSearchResult;
 import TCI_Crawler.exceptions.InvalidCategoryException;
 import TCI_Crawler.exceptions.InvalidSiteException;
 import TCI_Crawler.handlers.LinksHandler;
@@ -46,7 +44,7 @@ public class Spider {
         }
         long elapsedTime = System.currentTimeMillis() - startTime;
 
-        return new SearchResult(this.retrievedObjects, elapsedTime);
+        return new SearchResult(new ArrayList<>(this.retrievedObjects), elapsedTime);
     }
 
     public void clear() {
