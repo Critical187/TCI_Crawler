@@ -9,7 +9,6 @@ import org.junit.*;
 import org.jsoup.Jsoup;
 import org.junit.Before;
 import org.junit.Test;
-
 import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.hamcrest.MatcherAssert.assertThat;
 import org.jsoup.nodes.Document;
@@ -52,7 +51,7 @@ public class SearchObjectHandlerTest {
                 "Ludwig van Beethoven");
 
         // Assert that both objects are of the same class.
-        assertEquals(actualObject.getClass(), expectedObject.getClass());
+        assertEquals(expectedObject.getClass(), actualObject.getClass());
         // Assert that both objects have the exact same properties.
         assertThat(expectedObject, samePropertyValuesAs(actualObject));
     }
@@ -83,7 +82,7 @@ public class SearchObjectHandlerTest {
                 new String[]{"Tom Hanks", "Rebecca Williams", "Sally Field"});
 
         // Assert that both objects are of the same class.
-        assertEquals(actualObject.getClass(), expectedObject.getClass());
+        assertEquals(expectedObject.getClass(), actualObject.getClass());
         // Assert that both objects have the exact same properties.
         assertThat(expectedObject, samePropertyValuesAs(actualObject));
     }
@@ -114,7 +113,7 @@ public class SearchObjectHandlerTest {
                 "Prentice Hall");
 
         // Assert that both objects are of the same class.
-        assertEquals(actualObject.getClass(), expectedObject.getClass());
+        assertEquals(expectedObject.getClass(), actualObject.getClass());
         // Assert that both objects have the exact same properties.
         assertThat(expectedObject, samePropertyValuesAs(actualObject));
     }
