@@ -2,7 +2,6 @@ package TCI_Crawler.service;
 
 import TCI_Crawler.crawler.Spider;
 import TCI_Crawler.dto.SearchResult;
-import TCI_Crawler.searchObjects.Book;
 import com.owlike.genson.Genson;
 
 import javax.inject.Singleton;
@@ -15,9 +14,11 @@ import javax.ws.rs.core.Response;
 public class SpiderService {
 
     private final Spider spider;
+    private final Genson genson;
 
     public SpiderService() {
         this.spider = new Spider();
+        this.genson = new Genson();
     }
 
     @GET
@@ -26,13 +27,12 @@ public class SpiderService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response crawlWebsite(@PathParam("url") String url) {
         try {
-            String fullURL = "http://"+url+"/";
+            String fullURL = "http://" + url + "/";
             SearchResult searchResult = this.spider.search(fullURL, null);
+            String json = this.genson.serialize(searchResult);
+
             this.spider.clear();
-            Book book = new Book("h","Disney",3,"",new String[]{"Yui Kiahu"},"Camagochi","Kahhh");
-            Genson genson = new Genson();
-            String bookie = genson.serialize(searchResult);
-            return Response.ok(bookie).build();
+            return Response.ok(json).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -44,20 +44,14 @@ public class SpiderService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response crawlWebsiteForItem(@PathParam("url") String url, @PathParam("title") String titleName) {
         try {
-            SearchResult searchResult = this.spider.search(url, titleName.isEmpty() ? null : titleName);
+            String fullURL = "http://" + url + "/";
+            SearchResult searchResult = this.spider.search(fullURL, titleName.isEmpty() ? null : titleName);
+            String json = this.genson.serialize(searchResult);
+
             this.spider.clear();
-            return Response.ok(searchResult).build();
+            return Response.ok(json).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
     }
-
-    @GET
-    @Path("hello")
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response sayHello() {
-        return Response.ok("Wasup.").build();
-    }
-
-
 }
