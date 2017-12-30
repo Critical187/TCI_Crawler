@@ -31,7 +31,7 @@ public class SearchObjectHandlerTest {
     }
 
     @Test
-    public void testGetSearchObjectForMusic() throws InvalidCategoryException {
+    public void testGetDetailsForMusic() throws InvalidCategoryException {
         String htmlString = "<html><body>" +
                 "<div class=\"media-details\">" +
                 "<h1>Beethoven: Complete Symphonies</h1>" +
@@ -58,7 +58,7 @@ public class SearchObjectHandlerTest {
     }
 
     @Test
-    public void testGetSearchObjectForMovie() throws InvalidCategoryException {
+    public void testGetDetailsForMovie() throws InvalidCategoryException {
         String htmlString = "<html><body>" +
                 "<div class=\"media-details\">" +
                 "<h1>Forrest Gump</h1>" +
@@ -89,7 +89,7 @@ public class SearchObjectHandlerTest {
     }
 
     @Test
-    public void testGetSearchObjectForBook() throws InvalidCategoryException {
+    public void testGetDetailsForBook() throws InvalidCategoryException {
         String htmlString = "<html><body>" +
                 "<div class=\"media-details\">" +
                 "<h1>Clean Code: A Handbook of Agile Software Craftsmanship</h1>" +
@@ -120,7 +120,7 @@ public class SearchObjectHandlerTest {
     }
 
     @Test
-    public void testGetSearchObjectForInvalidCategory() throws InvalidCategoryException {
+    public void testGetDetailsForInvalidCategoryObject() throws InvalidCategoryException {
         // Set the expect exception to expect InvalidCategoryException and a certain message.
         thrown.expect(InvalidCategoryException.class);
         thrown.expectMessage("Unknown category 'Songs' found.");
@@ -141,7 +141,7 @@ public class SearchObjectHandlerTest {
     }
 
     @Test
-    public void testGetSearchObjectForNoObject() throws InvalidCategoryException {
+    public void testGetDetailsForNoObject() throws InvalidCategoryException {
         String htmlString = "<html><body></body></html>";
         Document htmlDocument = Jsoup.parse(htmlString);
         SearchObjectBase retrievedObject = this.objHandler.getSearchObjects(htmlDocument);
