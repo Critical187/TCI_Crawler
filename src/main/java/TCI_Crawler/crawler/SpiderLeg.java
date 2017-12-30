@@ -18,9 +18,9 @@ public class SpiderLeg {
     private final LinksHandler linksHandler;
     private final SearchObjectHandler searchObjectHandler;
 
-    public SpiderLeg() {
-        this.linksHandler = new LinksHandler();
-        this.searchObjectHandler = new SearchObjectHandler();
+    public SpiderLeg(LinksHandler linksHandler, SearchObjectHandler searchObjectHandler) {
+        this.linksHandler = linksHandler;
+        this.searchObjectHandler = searchObjectHandler;
     }
 
     public SearchObjectWithLinks crawlAndGather(String url)

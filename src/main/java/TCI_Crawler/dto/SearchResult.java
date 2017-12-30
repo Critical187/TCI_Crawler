@@ -6,10 +6,10 @@ import TCI_Crawler.searchObjects.Music;
 import TCI_Crawler.searchObjects.SearchObjectBase;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
-public class SearchResult{
+public class SearchResult {
 
-    //private final ArrayList<SearchObjectBase> retrievedObjects;
     private ArrayList<Book> books;
     private ArrayList<Music> music;
     private ArrayList<Movie> movies;
@@ -17,42 +17,20 @@ public class SearchResult{
     private final long time;
 
     public SearchResult(ArrayList<SearchObjectBase> retrievedObjects, long time) {
-        //this.retrievedObjects = retrievedObjects;
         this.time = time;
-        writeToClassLists(retrievedObjects);
+        this.books = retrievedObjects.stream()
+                .filter(x -> x instanceof Book)
+                .map(x -> (Book) x)
+                .collect(Collectors.toCollection(ArrayList::new));
+        this.music = retrievedObjects.stream()
+                .filter(x -> x instanceof Music)
+                .map(x -> (Music) x)
+                .collect(Collectors.toCollection(ArrayList::new));
+        this.movies = retrievedObjects.stream()
+                .filter(x -> x instanceof Movie)
+                .map(x -> (Movie) x)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
-    private void writeToClassLists(ArrayList<SearchObjectBase> listOfSearchObjects){
-        ArrayList<Book> tempBookList = new ArrayList<>();
-        ArrayList<Music> tempMusicList = new ArrayList<>();
-        ArrayList<Movie> tempMovieList = new ArrayList<>();
-
-        for (SearchObjectBase searchObjectBase : listOfSearchObjects){
-            switch (searchObjectBase.getClass().getSimpleName()){
-                case "Book":
-                    tempBookList.add((Book)searchObjectBase);
-                    break;
-
-                case "music":
-                    tempMusicList.add((Music)searchObjectBase);
-                    break;
-
-                case "Movie":
-                    tempMovieList.add((Movie)searchObjectBase);
-                    break;
-
-            }
-
-        }
-
-        books = tempBookList;
-        movies = tempMovieList;
-        music = tempMusicList;
-
-    }
-    /*public ArrayList<SearchObjectBase> getRetrievedObjects() {
-        return retrievedObjects;
-    }
-    */
 
     public ArrayList<Book> getBooks() {
         return books;
