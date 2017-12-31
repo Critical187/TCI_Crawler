@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.nio.file.FileSystems;
 
 public class ConversionUtil {
     private Genson genson;
@@ -23,8 +24,9 @@ public class ConversionUtil {
     public String ConvertFromJSONFileToString(String urlFromFile){
         try {
             //Get file from resources folder
-            InputStream stream = ConversionUtil.class.getResourceAsStream(urlFromFile);
-
+            ClassLoader classLoader = getClass().getClassLoader();
+            InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(urlFromFile);
+            System.out.println(classLoader.getResource(urlFromFile));
         return  IOUtils.toString(stream);
         } catch (Exception e) {
             e.printStackTrace();

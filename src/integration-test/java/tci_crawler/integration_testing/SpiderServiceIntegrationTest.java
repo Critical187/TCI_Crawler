@@ -25,18 +25,6 @@ public class SpiderServiceIntegrationTest {
     private static String WEBSITE_URL = "i315379.hera.fhict.nl";
 
     @Test
-    public void requestHelloTest() throws IOException{
-        HttpUriRequest request = new HttpGet( SpiderServiceURL + HELLO_URL );
-        // When
-
-        HttpResponse httpResponse = HttpClientBuilder.create().build().execute( request );
-        HttpEntity response = httpResponse.getEntity();
-        String message = ConversionUtil.getConversionUtil().ConvertToString(response);
-        //Then
-        assertThat("Wasup.",equalTo(message));
-    }
-
-    @Test
     public void givenURLDoesNotExist_whenSiteIsCrawled_then400IsReceived()
             throws IOException {
 
@@ -85,7 +73,7 @@ public class SpiderServiceIntegrationTest {
         HttpEntity entity = response.getEntity();
         String actualMessage = ConversionUtil.getConversionUtil().ConvertToString(entity);
         System.out.println(actualMessage);
-        String expectedMessage = ConversionUtil.getConversionUtil().ConvertFromJSONFileToString("com.zz.integrationTesting/TotalCrawlJSON.JSON");
+        String expectedMessage = ConversionUtil.getConversionUtil().ConvertFromJSONFileToString("TotalCrawl.JSON");
         assertEquals( expectedMessage,  actualMessage  );
 
     }
