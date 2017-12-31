@@ -1,0 +1,24 @@
+{
+  "books": [],
+  "movies": [
+    {
+      "director": "Robert Zemeckis",
+      "format": "DVD",
+      "genre": "Drama",
+      "name": "Forrest Gump",
+      "stars": [
+        "Tom Hanks",
+        "Rebecca Williams",
+        "Sally Field",
+        "Michael Conner Humphreys"
+      ],
+      "writers": [
+        "Winston Groom",
+        "Eric Roth"
+      ],
+      "year": 1994
+    }
+  ],
+  "music": [],
+  "time": 467
+}

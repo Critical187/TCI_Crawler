@@ -18,15 +18,14 @@ public class ConversionUtil {
     private ConversionUtil(){
        genson = new  Genson();
     }
-    public String ConvertToString(HttpEntity entity) throws IOException{
+    public String ConvertToString(HttpEntity entity) throws IOException {
         return EntityUtils.toString(entity);
     }
     public String ConvertFromJSONFileToString(String urlFromFile){
         try {
             //Get file from resources folder
-            ClassLoader classLoader = getClass().getClassLoader();
+            //ClassLoader classLoader = getClass().getClassLoader();
             InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(urlFromFile);
-            System.out.println(classLoader.getResource(urlFromFile));
         return  IOUtils.toString(stream);
         } catch (Exception e) {
             e.printStackTrace();
