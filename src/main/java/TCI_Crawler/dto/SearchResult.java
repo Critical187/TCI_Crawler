@@ -5,7 +5,9 @@ import TCI_Crawler.searchObjects.Movie;
 import TCI_Crawler.searchObjects.Music;
 import TCI_Crawler.searchObjects.SearchObjectBase;
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class SearchResult {
@@ -46,5 +48,14 @@ public class SearchResult {
 
     public long getTime() {
         return time;
+    }
+
+    public void Sort(){
+        this.books.sort((o1, o2) -> {
+            Collator usCollator = Collator.getInstance(Locale.US); return usCollator.compare(o1.getName(),o2.getName());} );
+        this.music.sort((o1, o2) -> {
+            Collator usCollator = Collator.getInstance(Locale.US); return usCollator.compare(o1.getName(),o2.getName());} );
+        this.movies.sort((o1, o2) -> {
+            Collator usCollator = Collator.getInstance(Locale.US); return usCollator.compare(o1.getName(),o2.getName());} );
     }
 }
