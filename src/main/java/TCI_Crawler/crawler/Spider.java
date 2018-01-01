@@ -3,8 +3,6 @@ package TCI_Crawler.crawler;
 import TCI_Crawler.dto.SearchResult;
 import TCI_Crawler.exceptions.InvalidCategoryException;
 import TCI_Crawler.exceptions.InvalidSiteException;
-import TCI_Crawler.handlers.LinksHandler;
-import TCI_Crawler.handlers.SearchObjectHandler;
 import TCI_Crawler.searchObjects.SearchObjectBase;
 import TCI_Crawler.searchObjects.SearchObjectWithLinks;
 
@@ -14,8 +12,6 @@ public class Spider {
     private final List<String> pagesVisited = new ArrayList<>();
     private final List<String> pagesToVisit = new ArrayList<>();
     private final List<SearchObjectBase> retrievedObjects = new ArrayList<>();
-    private final LinksHandler linksHandler = new LinksHandler();
-    private final SearchObjectHandler searchObjectHandler = new SearchObjectHandler();
     private int id = 0;
 
     public SearchResult search(String url, String titleToSearchFor)
@@ -24,7 +20,7 @@ public class Spider {
         pagesToVisit.add(url);
         while (!pagesToVisit.isEmpty()) {
             String currentUrl = this.pagesToVisit.get(0);
-            SpiderLeg leg = new SpiderLeg(this.linksHandler, this.searchObjectHandler);
+            SpiderLegConnection leg = new SpiderLegConnection();
             SearchObjectWithLinks searchObjectWithLinks = leg.crawlAndGather(currentUrl);
             if (searchObjectWithLinks.getRetrievedObject() != null) {
                 if (titleToSearchFor == null) {
