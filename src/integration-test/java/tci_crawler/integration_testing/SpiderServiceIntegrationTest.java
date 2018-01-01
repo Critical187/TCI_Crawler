@@ -1,6 +1,5 @@
 package tci_crawler.integration_testing;
 
-import com.owlike.genson.TransformationException;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -10,16 +9,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.hamcrest.Matchers;
 import org.junit.Test;
-import tci_crawler.integration_testing.ConversionUtil;
 
 import java.io.IOException;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class SpiderServiceIntegrationTest {
     private static String SpiderServiceURL = "http://localhost:8080/WCA/api/crawler/";
@@ -63,7 +59,7 @@ public class SpiderServiceIntegrationTest {
 
     @Test
     public void
-    crawlRequestWithWebsite_CorrectWebsiteIsGiven_ShouldReturnJSONWithCrawledContent() throws IOException, TransformationException {
+    crawlRequestWithWebsite_CorrectWebsiteIsGiven_ShouldReturnJSONWithCrawledContent() throws IOException{
 
             // Given
             String expectedMessage =ConversionUtil.getConversionUtil().ConvertFromJSONFileToString("TotalCrawl.JSON");
@@ -117,7 +113,7 @@ public class SpiderServiceIntegrationTest {
 
     @Test
     public void
-    crawlRequestWithWebsiteAndSearchTerm_CorrectWebsiteIsGiven_ShouldReturnJSONWithCrawledContent() throws IOException, TransformationException {
+    crawlRequestWithWebsiteAndSearchTerm_CorrectWebsiteIsGiven_ShouldReturnJSONWithCrawledContent() throws IOException {
 
         // Given
         String expectedMessage =ConversionUtil.getConversionUtil().ConvertFromJSONFileToString("SingleCrawlForForrestGump.JSON");
