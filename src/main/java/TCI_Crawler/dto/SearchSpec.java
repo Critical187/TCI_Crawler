@@ -12,34 +12,37 @@ public class SearchSpec {
         this.pages_explored = pages_explored;
         this.search_depth = search_depth;
     }
-    private String timeConverter(long time_elapsed){
-        long hoursInMiliSeconds = 60 * 60 * 1000;
-        long minutesInMiliSeconds = 60 * 1000;
-        long secondsInMiliSeconds = 1000;
+
+    private String timeConverter(long time_elapsed) {
+        long hoursInMilliSeconds = 60 * 60 * 1000;
+        long minutesInMilliSeconds = 60 * 1000;
+        long secondsInMilliSeconds = 1000;
 
         String convenientTime = "";
         long time_remaining = time_elapsed;
 
-
         //hours
-        if (time_remaining / hoursInMiliSeconds > 0  )
-        {
-            convenientTime += time_remaining / hoursInMiliSeconds +"h ";
-            time_remaining %=  hoursInMiliSeconds;
+        if (time_remaining / hoursInMilliSeconds > 0) {
+            convenientTime += time_remaining / hoursInMilliSeconds + "h ";
+            time_remaining %= hoursInMilliSeconds;
         }
+
         //minutes
-        if(time_remaining / minutesInMiliSeconds > 0)
-        {
-            convenientTime += time_remaining / minutesInMiliSeconds +"m ";
-            time_remaining %=  minutesInMiliSeconds;
+        if (time_remaining / minutesInMilliSeconds > 0) {
+            convenientTime += time_remaining / minutesInMilliSeconds + "m ";
+            time_remaining %= minutesInMilliSeconds;
         }
+
         //seconds
-        if((time_remaining * 1.0)  / secondsInMiliSeconds > 0.01)
-        {
-            convenientTime += (1.0 *  time_remaining) / secondsInMiliSeconds +"s ";
-            time_remaining %=  secondsInMiliSeconds;
+        if ((time_remaining * 1.0) / secondsInMilliSeconds > 0.01) {
+            convenientTime += (1.0 * time_remaining) / secondsInMilliSeconds + "s ";
+            time_remaining %= secondsInMilliSeconds;
         }
+
         return convenientTime.trim();
     }
-    public int getID(){return id;}
+
+    public int getID() {
+        return id;
+    }
 }
