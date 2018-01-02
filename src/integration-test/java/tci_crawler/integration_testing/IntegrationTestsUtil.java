@@ -7,32 +7,25 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class ConversionUtil {
-    static private ConversionUtil instance;
+public class IntegrationTestsUtil {
 
-    static public ConversionUtil getConversionUtil() {
-        if (instance == null) {
-            instance = new ConversionUtil();
-        }
-        return instance;
-    }
-
-    private ConversionUtil() {
-    }
-
-    public String ConvertToString(HttpEntity entity) throws IOException {
+    public static String ConvertToString(HttpEntity entity) throws IOException {
         return EntityUtils.toString(entity);
     }
 
-    public String ConvertFromJSONFileToString(String urlFromFile) {
+    public static String ConvertFromJSONFileToString(String urlFromFile) {
         try {
             //Get file from resources folder
-            //ClassLoader classLoader = getClass().getClassLoader();
             InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(urlFromFile);
             return IOUtils.toString(stream);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static String setTimeToZero(String jsonString) {
+        String[] strings = jsonString.split("\"time\":");
+        return strings[0] + "\"time\":0}";
     }
 }
