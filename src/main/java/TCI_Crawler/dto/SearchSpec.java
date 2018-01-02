@@ -16,4 +16,5 @@ public class SearchSpec {
 
         return "";
     }
+    public int getID(){return id;}
 }
