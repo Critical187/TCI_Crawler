@@ -71,10 +71,10 @@ public class SpiderService {
     }
 
     @GET
-    @Path("spec/{id}")
+    @Path("details/{id}")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getSpecForCrawlID(@PathParam("id") int id) {
+    public Response getDetailsForCrawlID(@PathParam("id") int id) {
         SearchSpec searchSpec;
         searchSpec = searchSpecHashMap.get(id);
         if (searchSpec == null)
@@ -84,8 +84,6 @@ public class SpiderService {
 
         return Response.status(Response.Status.OK).entity(json).build();
     }
-    //private methods
-
 
     private void createSearchSpec(Spider spider, SearchResult searchResult) {
         //Attach ID
