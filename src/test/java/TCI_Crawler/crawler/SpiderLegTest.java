@@ -40,8 +40,8 @@ public class SpiderLegTest {
                 "<tr><th>Format</th><td>DVD</td></tr>" +
                 "<tr><th>Year</th><td>1994</td></tr>" +
                 "<tr><th>Director</th><td>Robert Zemeckis</td></tr>" +
-                "<tr><th>Writers</th><td>Winston Groom,Eric Roth</td></tr>" +
-                "<tr><th>Stars</th><td>Tom Hanks,Rebecca Williams,Sally Field</td></tr>" +
+                "<tr><th>Writers</th><td>Winston Groom, Eric Roth</td></tr>" +
+                "<tr><th>Stars</th><td>Tom Hanks, Rebecca Williams, Sally Field</td></tr>" +
                 "</table></div></body></html>";
         Document htmlDocument = Jsoup.parse(htmlString);
         SpiderLeg leg = new SpiderLeg(new LinksHandler(), new SearchObjectHandler());
