@@ -12,14 +12,14 @@ import java.util.stream.Collectors;
 
 public class SearchResult {
 
-    private int id;
-    private ArrayList<Book> books;
-    private ArrayList<Music> music;
-    private ArrayList<Movie> movies;
-
+    private final int id;
+    private final ArrayList<Book> books;
+    private final ArrayList<Music> music;
+    private final ArrayList<Movie> movies;
     private final long time;
 
-    public SearchResult(ArrayList<SearchObjectBase> retrievedObjects, long time) {
+    public SearchResult(int id,ArrayList<SearchObjectBase> retrievedObjects, long time) {
+        this.id = id;
         this.time = time;
         this.books = retrievedObjects.stream()
                 .filter(x -> x instanceof Book)
@@ -52,9 +52,7 @@ public class SearchResult {
     public int getId() {
         return id;
     }
-    public void setId(int id){
-        this.id = id;
-    }
+
     public long getTime() {
         return time;
     }

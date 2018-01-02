@@ -4,6 +4,7 @@ import TCI_Crawler.crawler.Spider;
 import TCI_Crawler.dto.SearchResult;
 import TCI_Crawler.exceptions.InvalidCategoryException;
 import TCI_Crawler.exceptions.InvalidSiteException;
+import TCI_Crawler.handlers.DetailsStorageHandler;
 import TCI_Crawler.searchObjects.SearchObjectBase;
 import org.junit.Before;
 import org.junit.Rule;
@@ -31,7 +32,7 @@ public class SpiderIntegrationTest {
 
     @Before
     public void setUp() {
-        this.spider = new Spider();
+        this.spider = new Spider(new DetailsStorageHandler());
     }
 
     @Test

@@ -1,8 +1,10 @@
 package TCI_Crawler.crawler;
 
+import TCI_Crawler.dto.SearchDetails;
 import TCI_Crawler.dto.SearchResult;
 import TCI_Crawler.exceptions.InvalidCategoryException;
 import TCI_Crawler.exceptions.InvalidSiteException;
+import TCI_Crawler.handlers.DetailsStorageHandler;
 import TCI_Crawler.searchObjects.SearchObjectBase;
 import TCI_Crawler.searchObjects.SearchObjectWithLinks;
 
@@ -10,9 +12,14 @@ import java.util.*;
 
 public class Spider {
     private final List<String> pagesVisited = new ArrayList<>();
+    private final DetailsStorageHandler detailsStorageHandler;
     private final Stack<String> pagesToVisit = new Stack<>();
     private final List<SearchObjectBase> retrievedObjects = new ArrayList<>();
     private int id = 0;
+
+    public Spider(DetailsStorageHandler detailsStorageHandler) {
+        this.detailsStorageHandler = detailsStorageHandler;
+    }
 
     public SearchResult search(String url, String titleToSearchFor)
             throws InvalidCategoryException, InvalidSiteException {
@@ -37,13 +44,22 @@ public class Spider {
                 }
             }
         }
-        long elapsedTime = System.currentTimeMillis() - startTime;
 
-        return new SearchResult(new ArrayList<>(this.retrievedObjects), elapsedTime);
+        long elapsedTime = System.currentTimeMillis() - startTime;
+        int id = this.detailsStorageHandler.getNextId();
+        this.detailsStorageHandler.addDetails(new TCI_Crawler.searchObjects.SearchDetails(
+                id,
+                elapsedTime,
+                this.pagesVisited.size(),
+                1));
+
+        return new SearchResult(id, new ArrayList<>(this.retrievedObjects), elapsedTime);
     }
 
-    public int getNumberOfPagesExplored() {
-        return pagesVisited.size();
+    public Optional<SearchDetails> getSearchDetails(Integer id) {
+        return this.detailsStorageHandler
+                .getDetails(id)
+                .flatMap(x -> Optional.of(new SearchDetails(x)));
     }
 
     public void clear() {
