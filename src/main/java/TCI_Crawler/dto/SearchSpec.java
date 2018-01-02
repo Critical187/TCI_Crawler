@@ -13,8 +13,33 @@ public class SearchSpec {
         this.search_depth = search_depth;
     }
     private String timeConverter(long time_elapsed){
+        long hoursInMiliSeconds = 60 * 60 * 1000;
+        long minutesInMiliSeconds = 60 * 1000;
+        long secondsInMiliSeconds = 1000;
 
-        return "";
+        String convenientTime = "";
+        long time_remaining = time_elapsed;
+
+
+        //hours
+        if (time_remaining / hoursInMiliSeconds > 0  )
+        {
+            convenientTime += time_remaining / hoursInMiliSeconds +"h ";
+            time_remaining %=  hoursInMiliSeconds;
+        }
+        //minutes
+        if(time_remaining / minutesInMiliSeconds > 0)
+        {
+            convenientTime += time_remaining / minutesInMiliSeconds +"m ";
+            time_remaining %=  minutesInMiliSeconds;
+        }
+        //seconds
+        if((time_remaining * 1.0)  / secondsInMiliSeconds > 0.01)
+        {
+            convenientTime += (1.0 *  time_remaining) / secondsInMiliSeconds +"s ";
+            time_remaining %=  secondsInMiliSeconds;
+        }
+        return convenientTime.trim();
     }
     public int getID(){return id;}
 }

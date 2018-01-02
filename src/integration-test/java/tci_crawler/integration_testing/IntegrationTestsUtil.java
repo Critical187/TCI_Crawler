@@ -28,4 +28,10 @@ public class IntegrationTestsUtil {
         String[] strings = jsonString.split("\"time\":");
         return strings[0] + "\"time\":0}";
     }
+    public static String setElapsedTimeToZero(String jsonString) {
+        int i = jsonString.indexOf("time_elapsed");
+        String[] strings = jsonString.split("\"time_elapsed\":");
+
+        return strings[0] + "\"time_elapsed\":0," +strings[1].split(",",2)[1];
+    }
 }
