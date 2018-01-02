@@ -42,7 +42,9 @@ public class Spider {
 
         return new SearchResult(new ArrayList<>(this.retrievedObjects), elapsedTime);
     }
-
+    public int getNumberOfPagesExplored(){
+        return pagesVisited.size();
+    }
     public void clear() {
         this.pagesToVisit.clear();
         this.pagesVisited.clear();
