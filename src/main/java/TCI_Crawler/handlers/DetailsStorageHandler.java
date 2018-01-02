@@ -24,6 +24,6 @@ public class DetailsStorageHandler {
     }
 
     public int getNextId() {
-        return id++;
+        id++; return id;
     }
 }

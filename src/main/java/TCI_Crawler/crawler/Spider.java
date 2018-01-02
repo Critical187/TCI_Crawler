@@ -51,7 +51,7 @@ public class Spider {
                 id,
                 elapsedTime,
                 this.pagesVisited.size(),
-                1));
+                -1));
 
         return new SearchResult(id, new ArrayList<>(this.retrievedObjects), elapsedTime);
     }

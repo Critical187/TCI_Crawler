@@ -154,7 +154,7 @@ public class SpiderServiceIntegrationTest {
     SearchDetailsRequestOfSearch_WebsiteWithIDHasBeenCrawled_ShouldReturnJSONWithSearchSpecs()
             throws IOException {
         // Given
-        String expectedMessage = IntegrationTestsUtil.ConvertFromJSONFileToString("SearchSpecForOne.JSON");
+        String expectedMessage = IntegrationTestsUtil.ConvertFromJSONFileToString("SearchDetailsForOne.JSON");
         HttpUriRequest request = new HttpGet(SpiderServiceURL + CRAWL_URL + WEBSITE_URL);
         HttpClientBuilder.create().build().execute(request);
         ID++;
