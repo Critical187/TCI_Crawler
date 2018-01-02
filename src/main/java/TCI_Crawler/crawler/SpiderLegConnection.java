@@ -33,6 +33,7 @@ public class SpiderLegConnection {
             if (connection.response().statusCode() != 200) {
                 throw new InvalidSiteException(String.format("Could not establish connection to URL '%s'.", url));
             }
+
             return this.spiderLeg.getObjectAndLinks(htmlDocument);
         } catch (IOException ioe) {
             throw new InvalidSiteException(String.format("Could not establish connection to URL '%s'.", url));

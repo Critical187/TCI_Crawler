@@ -27,15 +27,12 @@ public class SpiderService {
         try {
             String fullURL = "http://" + url + "/";
             SearchResult searchResult = this.spider.search(fullURL, null);
-            //sorting the searchResult
-            searchResult.Sort();
             String json = new GsonBuilder().setPrettyPrinting().create().toJson(searchResult);
 
-            this.spider.clear();
             return Response.ok(json).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
-        }finally {
+        } finally {
             this.spider.clear();
         }
     }
@@ -50,11 +47,10 @@ public class SpiderService {
             SearchResult searchResult = this.spider.search(fullURL, titleName.isEmpty() ? null : titleName);
             String json = new GsonBuilder().setPrettyPrinting().create().toJson(searchResult);
 
-            this.spider.clear();
             return Response.ok(json).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
-        }finally {
+        } finally {
             this.spider.clear();
         }
     }

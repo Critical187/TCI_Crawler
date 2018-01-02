@@ -32,6 +32,8 @@ public class SearchResult {
                 .filter(x -> x instanceof Movie)
                 .map(x -> (Movie) x)
                 .collect(Collectors.toCollection(ArrayList::new));
+
+        this.sort();
     }
 
     public ArrayList<Book> getBooks() {
@@ -50,12 +52,10 @@ public class SearchResult {
         return time;
     }
 
-    public void Sort(){
-        this.books.sort((o1, o2) -> {
-            Collator usCollator = Collator.getInstance(Locale.US); return usCollator.compare(o1.getName(),o2.getName());} );
-        this.music.sort((o1, o2) -> {
-            Collator usCollator = Collator.getInstance(Locale.US); return usCollator.compare(o1.getName(),o2.getName());} );
-        this.movies.sort((o1, o2) -> {
-            Collator usCollator = Collator.getInstance(Locale.US); return usCollator.compare(o1.getName(),o2.getName());} );
+    private void sort() {
+        Collator usCollator = Collator.getInstance(Locale.US);
+        this.books.sort((o1, o2) -> usCollator.compare(o1.getName(), o2.getName()));
+        this.music.sort((o1, o2) -> usCollator.compare(o1.getName(), o2.getName()));
+        this.movies.sort((o1, o2) -> usCollator.compare(o1.getName(), o2.getName()));
     }
 }
