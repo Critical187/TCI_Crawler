@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 public class SearchResult {
 
+    private int id;
     private ArrayList<Book> books;
     private ArrayList<Music> music;
     private ArrayList<Movie> movies;
@@ -48,6 +49,12 @@ public class SearchResult {
         return movies;
     }
 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id){
+        this.id = id;
+    }
     public long getTime() {
         return time;
     }
