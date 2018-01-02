@@ -17,6 +17,7 @@ import java.io.IOException;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SpiderServiceIntegrationTest {
     private static String SpiderServiceURL = "http://localhost:8080/WCA/api/crawler/";
