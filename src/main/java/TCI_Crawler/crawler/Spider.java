@@ -10,7 +10,7 @@ import java.util.*;
 
 public class Spider {
     private final List<String> pagesVisited = new ArrayList<>();
-    private final List<String> pagesToVisit = new ArrayList<>();
+    private final Stack<String> pagesToVisit = new Stack<>();
     private final List<SearchObjectBase> retrievedObjects = new ArrayList<>();
     private int id = 0;
 
@@ -19,7 +19,7 @@ public class Spider {
         long startTime = System.currentTimeMillis();
         pagesToVisit.add(url);
         while (!pagesToVisit.isEmpty()) {
-            String currentUrl = this.pagesToVisit.get(0);
+            String currentUrl = this.pagesToVisit.pop();
             SpiderLegConnection leg = new SpiderLegConnection();
             SearchObjectWithLinks searchObjectWithLinks = leg.crawlAndGather(currentUrl);
             if (searchObjectWithLinks.getRetrievedObject() != null) {
@@ -31,7 +31,6 @@ public class Spider {
                 }
             }
             this.pagesVisited.add(currentUrl);
-            this.pagesToVisit.remove(0);
             for (String newUrl : searchObjectWithLinks.getRetrievedLinks()) {
                 if (!this.pagesVisited.contains(newUrl) && !pagesToVisit.contains(newUrl)) {
                     pagesToVisit.add(newUrl);
@@ -42,9 +41,11 @@ public class Spider {
 
         return new SearchResult(new ArrayList<>(this.retrievedObjects), elapsedTime);
     }
-    public int getNumberOfPagesExplored(){
+
+    public int getNumberOfPagesExplored() {
         return pagesVisited.size();
     }
+
     public void clear() {
         this.pagesToVisit.clear();
         this.pagesVisited.clear();
