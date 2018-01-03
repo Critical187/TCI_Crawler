@@ -1,4 +1,4 @@
-package TCI_Crawler.TreeStructure;
+package TCI_Crawler.treeStructure;
 
 import java.util.ArrayList;
 import java.util.List;

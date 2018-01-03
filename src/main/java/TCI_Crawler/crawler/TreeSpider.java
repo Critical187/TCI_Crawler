@@ -1,6 +1,6 @@
 package TCI_Crawler.crawler;
 
-import TCI_Crawler.TreeStructure.Searcher;
+import TCI_Crawler.treeStructure.Searcher;
 import TCI_Crawler.dto.SearchDetails;
 import TCI_Crawler.dto.SearchResult;
 import TCI_Crawler.exceptions.InvalidCategoryException;
@@ -9,7 +9,6 @@ import TCI_Crawler.handlers.DetailsStorageHandler;
 import TCI_Crawler.searchObjects.SearchObjectBase;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.TreeSet;
 

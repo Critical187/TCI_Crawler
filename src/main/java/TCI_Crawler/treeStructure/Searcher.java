@@ -1,4 +1,4 @@
-package TCI_Crawler.TreeStructure;
+package TCI_Crawler.treeStructure;
 
 import TCI_Crawler.crawler.SpiderLegConnection;
 import TCI_Crawler.exceptions.InvalidCategoryException;
