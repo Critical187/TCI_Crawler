@@ -34,7 +34,7 @@ public class SearchResult {
                 .map(x -> (Movie) x)
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        this.sort();
+        /*this.sort();*/
     }
 
     public ArrayList<Book> getBooks() {

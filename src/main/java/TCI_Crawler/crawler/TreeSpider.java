@@ -1,6 +1,5 @@
 package TCI_Crawler.crawler;
 
-import TCI_Crawler.TreeStructure.Node;
 import TCI_Crawler.TreeStructure.Searcher;
 import TCI_Crawler.dto.SearchDetails;
 import TCI_Crawler.dto.SearchResult;
@@ -8,19 +7,15 @@ import TCI_Crawler.exceptions.InvalidCategoryException;
 import TCI_Crawler.exceptions.InvalidSiteException;
 import TCI_Crawler.handlers.DetailsStorageHandler;
 import TCI_Crawler.searchObjects.SearchObjectBase;
-import TCI_Crawler.searchObjects.SearchObjectWithLinks;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.TreeSet;
 
 public class TreeSpider {
-    private final HashMap<String, Node<SearchObjectBase>> listOfNodes = new HashMap<>();
-    private final List<String> pagesVisited = new ArrayList<>();
     private final DetailsStorageHandler detailsStorageHandler;
-    private final List<SearchObjectBase> retrievedObjects = new ArrayList<>();
-    private Node<SearchObjectBase> rootNode;
+    private final TreeSet<SearchObjectBase> retrievedObjects = new TreeSet<>();
     private Searcher searcher;
 
     public TreeSpider(DetailsStorageHandler detailsStorageHandler) {
@@ -31,7 +26,8 @@ public class TreeSpider {
     public static void main(String... arg) {
         TreeSpider ts = new TreeSpider(new DetailsStorageHandler());
         try {
-            System.out.println(ts.search("http://i315379.hera.fhict.nl/", "Forest"));
+            System.out.println(ts.search("http://i315379.hera.fhict.nl/", "A"));
+            ts.searcher.printTree();
         } catch (InvalidCategoryException e) {
             e.printStackTrace();
         } catch (InvalidSiteException e) {
@@ -42,16 +38,17 @@ public class TreeSpider {
     public SearchResult search(String url, String titleToSearchFor)
             throws InvalidCategoryException, InvalidSiteException {
         long startTime = System.currentTimeMillis();
-        makeNode(null, url);
+
         searcher.setTitleToSearchFor(titleToSearchFor);
-        searcher.dfs(rootNode);
+        searcher.makeNode(null, url);
+        searcher.depthFirstSearch();
 
         long elapsedTime = System.currentTimeMillis() - startTime;
         int id = this.detailsStorageHandler.getNextId();
         this.detailsStorageHandler.addDetails(new TCI_Crawler.searchObjects.SearchDetails(
                 id,
                 elapsedTime,
-                this.pagesVisited.size(),
+                searcher.getPagesExplored(),
                 searcher.getDepth()));
 
         return new SearchResult(id, new ArrayList<>(this.retrievedObjects), elapsedTime);
@@ -64,41 +61,10 @@ public class TreeSpider {
     }
 
     //Might be placed in separate class for separating responsibilities
-    private void makeNode(Node parent, String url) throws InvalidCategoryException, InvalidSiteException {
-        if (!pagesVisited.contains(url)) {
-            pagesVisited.add(url);
-            SpiderLegConnection leg = new SpiderLegConnection();
-            SearchObjectWithLinks searchObjectWithLinks = leg.crawlAndGather(url);
-            Node newNode = new Node<SearchObjectBase>(searchObjectWithLinks.getRetrievedObject());
-            listOfNodes.put(url, newNode);
-            if (parent == null) {
-                rootNode = newNode;
-                rootNode.setWeight(0);
-            } else {
-                parent.addNeighbours(newNode);
-                newNode.setWeight(parent.getWeight() + 1);
-            }
-            newNode.setParent(parent);
-            for (String link : searchObjectWithLinks.getRetrievedLinks()) {
-                makeNode(newNode, link);
-            }
 
-        } else {
-            if (parent == null)
-                return;
-            Node oldNode = listOfNodes.get(url);
-            if (parent.getWeight() < oldNode.getWeight()) {
-                oldNode.setWeight(parent.getWeight() + 1);
-                oldNode.getParent().removeNeighbour(oldNode);
-                oldNode.setParent(parent);
-                parent.addNeighbours(oldNode);
-            }
-        }
-    }
 
     public void clear() {
-        rootNode = null;
-        this.pagesVisited.clear();
+        this.searcher.clear();
         this.retrievedObjects.clear();
     }
 }

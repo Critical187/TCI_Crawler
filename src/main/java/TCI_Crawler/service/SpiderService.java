@@ -1,6 +1,7 @@
 package TCI_Crawler.service;
 
 import TCI_Crawler.crawler.Spider;
+import TCI_Crawler.crawler.TreeSpider;
 import TCI_Crawler.dto.SearchResult;
 import TCI_Crawler.dto.SearchDetails;
 import TCI_Crawler.handlers.DetailsStorageHandler;
@@ -18,9 +19,10 @@ import java.util.Optional;
 public class SpiderService {
 
     private final Spider spider;
-
+    private final TreeSpider treeSpider;
     public SpiderService() {
         this.spider = new Spider(new DetailsStorageHandler());
+        treeSpider = new TreeSpider(new DetailsStorageHandler());
     }
 
     @GET
@@ -32,7 +34,7 @@ public class SpiderService {
             //Make the url a proper URL
             String fullURL = "http://" + url + "/";
             //Fetch SearchResult
-            SearchResult searchResult = this.spider.search(fullURL, null);
+            SearchResult searchResult = this.treeSpider.search(fullURL, null);
             //Convert To JSON
             String json = new GsonBuilder().setPrettyPrinting().create().toJson(searchResult);
 
@@ -40,7 +42,7 @@ public class SpiderService {
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         } finally {
-            this.spider.clear();
+            this.treeSpider.clear();
         }
     }
 
@@ -53,7 +55,7 @@ public class SpiderService {
             //Make the url a proper URL
             String fullURL = "http://" + url + "/";
             //Fetch SearchResult
-            SearchResult searchResult = this.spider.search(fullURL, titleName.isEmpty() ? null : titleName);
+            SearchResult searchResult = this.treeSpider.search(fullURL, titleName.isEmpty() ? null : titleName);
             //Convert To JSON
             String json = new GsonBuilder().setPrettyPrinting().create().toJson(searchResult);
 
@@ -61,7 +63,7 @@ public class SpiderService {
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         } finally {
-            this.spider.clear();
+            this.treeSpider.clear();
         }
     }
 
@@ -70,7 +72,7 @@ public class SpiderService {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getDetailsForCrawlID(@PathParam("id") int id) {
-        Optional<SearchDetails> searchDetails = this.spider.getSearchDetails(id);
+        Optional<SearchDetails> searchDetails = this.treeSpider.getSearchDetails(id);
         if (!searchDetails.isPresent())
             return Response.status(Response.Status.NO_CONTENT).entity("No Specs found for ID: " + id).build();
 
