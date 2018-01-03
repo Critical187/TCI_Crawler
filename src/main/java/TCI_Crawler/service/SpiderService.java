@@ -1,6 +1,5 @@
 package TCI_Crawler.service;
 
-import TCI_Crawler.crawler.Spider;
 import TCI_Crawler.crawler.TreeSpider;
 import TCI_Crawler.dto.SearchResult;
 import TCI_Crawler.dto.SearchDetails;
@@ -11,17 +10,15 @@ import javax.inject.Singleton;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.HashMap;
 import java.util.Optional;
 
 @Path("crawler")
 @Singleton
 public class SpiderService {
 
-    private final Spider spider;
     private final TreeSpider treeSpider;
+
     public SpiderService() {
-        this.spider = new Spider(new DetailsStorageHandler());
         treeSpider = new TreeSpider(new DetailsStorageHandler());
     }
 
