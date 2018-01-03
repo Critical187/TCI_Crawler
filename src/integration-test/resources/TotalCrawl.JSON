@@ -1,0 +1,167 @@
+{
+  "id": 3,
+  "books": [
+    {
+      "authors": [
+        "Erich Gamma",
+        "Richard Helm",
+        "Ralph Johnson",
+        "John Vlissides"
+      ],
+      "isbn": "978-0201633610",
+      "publisher": "Prentice Hall",
+      "genre": "Tech",
+      "year": 1994,
+      "format": "Paperback",
+      "name": "A Design Patterns: Elements of Reusable Object-Oriented Software"
+    },
+    {
+      "authors": [
+        "Robert C. Martin"
+      ],
+      "isbn": "978-0132350884",
+      "publisher": "Prentice Hall",
+      "genre": "Tech",
+      "year": 2008,
+      "format": "Ebook",
+      "name": "Clean Code: A Handbook of Agile Software Craftsmanship"
+    },
+    {
+      "authors": [
+        "Martin Fowler",
+        "Kent Beck",
+        "John Brant",
+        "William Opdyke",
+        "Don Roberts"
+      ],
+      "isbn": "978-0201485677",
+      "publisher": "Addison-Wesley Professional",
+      "genre": "Tech",
+      "year": 1999,
+      "format": "Hardcover",
+      "name": "Refactoring: Improving the Design of Existing Code"
+    },
+    {
+      "authors": [
+        "Robert C. Martin"
+      ],
+      "isbn": "007-6092046981",
+      "publisher": "Prentice Hall",
+      "genre": "Tech",
+      "year": 2011,
+      "format": "Audio",
+      "name": "The Clean Coder: A Code of Conduct for Professional Programmers"
+    }
+  ],
+  "music": [
+    {
+      "artist": "Ludwig van Beethoven",
+      "genre": "Clasical",
+      "year": 2012,
+      "format": "CD",
+      "name": "Beethoven: Complete Symphonies"
+    },
+    {
+      "artist": "Elvis Presley",
+      "genre": "Rock",
+      "year": 2015,
+      "format": "Vinyl",
+      "name": "Elvis Forever"
+    },
+    {
+      "artist": "Garth Brooks",
+      "genre": "Country",
+      "year": 1990,
+      "format": "Cassette",
+      "name": "No Fences"
+    },
+    {
+      "artist": "Nat King Cole",
+      "genre": "Jaz",
+      "year": 2008,
+      "format": "MP3",
+      "name": "The Very Thought of You"
+    }
+  ],
+  "movies": [
+    {
+      "director": "Robert Zemeckis",
+      "writers": [
+        "Winston Groom",
+        "Eric Roth"
+      ],
+      "stars": [
+        "Tom Hanks",
+        "Rebecca Williams",
+        "Sally Field",
+        "Michael Conner Humphreys"
+      ],
+      "genre": "Drama",
+      "year": 1994,
+      "format": "DVD",
+      "name": "Forrest Gump"
+    },
+    {
+      "director": "Mike Judge",
+      "writers": [
+        "William Goldman"
+      ],
+      "stars": [
+        "Ron Livingston",
+        "Jennifer Aniston",
+        "David Herman",
+        "Ajay Naidu",
+        "Diedrich Bader",
+        "Stephen Root"
+      ],
+      "genre": "Comedy",
+      "year": 1999,
+      "format": "Blu-ray",
+      "name": "Office Space"
+    },
+    {
+      "director": "Peter Jackson",
+      "writers": [
+        "J.R.R. Tolkien",
+        "Fran Walsh",
+        "Philippa Boyens",
+        "Peter Jackson"
+      ],
+      "stars": [
+        "Ron Livingston",
+        "Jennifer Aniston",
+        "David Herman",
+        "Ajay Naidu",
+        "Diedrich Bader",
+        "Stephen Root"
+      ],
+      "genre": "Drama",
+      "year": 2001,
+      "format": "Blu-ray",
+      "name": "The Lord of the Rings: The Fellowship of the Ring"
+    },
+    {
+      "director": "Rob Reiner",
+      "writers": [
+        "William Goldman"
+      ],
+      "stars": [
+        "Cary Elwes",
+        "Mandy Patinkin",
+        "Robin Wright",
+        "Chris Sarandon",
+        "Christopher Guest",
+        "Wallace Shawn",
+        "AndrÃ© the Giant",
+        "Fred Savage",
+        "Peter Falk",
+        "Billy Crystal"
+      ],
+      "genre": "Comedy",
+      "year": 1987,
+      "format": "DVD",
+      "name": "The Princess Bride"
+    }
+  ],
+  "time": 502
+}

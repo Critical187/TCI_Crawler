@@ -4,7 +4,7 @@ package TCI_Crawler.searchObjects;
  * An abstract class, that represents an object, retrieved from the performed crawling
  * on a given page.
  */
-public abstract class SearchObjectBase {
+public abstract class SearchObjectBase implements Comparable<SearchObjectBase> {
 
     /**
      * The genre of the retrieved object.
@@ -67,5 +67,22 @@ public abstract class SearchObjectBase {
      */
     public String getName() {
         return name;
+    }
+    @Override
+    public int compareTo(SearchObjectBase o) {
+        int value = 0;
+        SearchObjectBase other = (SearchObjectBase)o;
+        value = this.name.compareTo(other.name);
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return "SearchObjectBase{" +
+                "genre='" + genre + '\'' +
+                ", year=" + year +
+                ", format='" + format + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
