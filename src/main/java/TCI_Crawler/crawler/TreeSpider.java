@@ -75,9 +75,10 @@ public class TreeSpider {
                 rootNode = newNode;
                 rootNode.setWeight(0);
             } else {
-                parent.addneighbours(newNode);
+                parent.addNeighbours(newNode);
                 newNode.setWeight(parent.getWeight() + 1);
             }
+            newNode.setParent(parent);
             for (String link : searchObjectWithLinks.getRetrievedLinks()) {
                 makeNode(newNode, link);
             }
@@ -88,7 +89,9 @@ public class TreeSpider {
             Node oldNode = listOfNodes.get(url);
             if (parent.getWeight() < oldNode.getWeight()) {
                 oldNode.setWeight(parent.getWeight() + 1);
-                parent.addneighbours(oldNode);
+                oldNode.getParent().removeNeighbour(oldNode);
+                oldNode.setParent(parent);
+                parent.addNeighbours(oldNode);
             }
         }
     }
