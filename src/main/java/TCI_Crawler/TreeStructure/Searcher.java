@@ -8,8 +8,8 @@ import java.util.Objects;
 public class Searcher {
 
     private List retrievedObjects;
-    private int depth;
-    private int tempDepth;
+    private int depth = -1;
+    private int tempDepth = 0;
     private String titleToSearchFor;
 
     public Searcher(List retrievedObjects) {
