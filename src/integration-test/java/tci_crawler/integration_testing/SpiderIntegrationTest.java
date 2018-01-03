@@ -56,6 +56,8 @@ public class SpiderIntegrationTest {
         assertThat(retrievedObject.getMusic(), hasSize(4));
         // Assert that the amount of movies retrieved is as expected (4 for the specific site).
         assertThat(retrievedObject.getMovies(), hasSize(4));
+        // Assert that the identifier of the retrieved object is correct.
+        assertEquals(1,retrievedObject.getId());
         // Assert that the search took at least 1 millisecond.
         assertTrue(retrievedObject.getTime() > 0);
 
@@ -107,9 +109,10 @@ public class SpiderIntegrationTest {
         assertThat(retrievedObject.getMusic(), hasSize(0));
         // Assert there is exactly one movie.
         assertThat(retrievedObject.getMovies(), hasSize(1));
+        // Assert that the identifier of the retrieved object is correct.
+        assertEquals(1,retrievedObject.getId());
         // Assert that the search took at least 1 millisecond.
         assertTrue(retrievedObject.getTime() > 0);
-
         // Assert that the proper movie is returned by checking the title.
         assertEquals(searchWord, retrievedObject.getMovies().get(0).getName());
     }

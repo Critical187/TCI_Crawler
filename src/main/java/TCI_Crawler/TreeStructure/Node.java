@@ -34,12 +34,11 @@ public class Node<T> {
     }
 
     public List getNeighbours() {
-        return neighbours.stream().collect(Collectors.toCollection(ArrayList::new));
+        return new ArrayList<>(neighbours);
     }
 
     public void setNeighbours(List neighbours) {
         this.neighbours = new HashSet<Node>(neighbours);
-
     }
 
     public int getWeight() {
