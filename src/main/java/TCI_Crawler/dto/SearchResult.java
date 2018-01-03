@@ -18,7 +18,7 @@ public class SearchResult {
     private final ArrayList<Movie> movies;
     private final long time;
 
-    public SearchResult(int id,ArrayList<SearchObjectBase> retrievedObjects, long time) {
+    public SearchResult(int id, ArrayList<SearchObjectBase> retrievedObjects, long time) {
         this.id = id;
         this.time = time;
         this.books = retrievedObjects.stream()
