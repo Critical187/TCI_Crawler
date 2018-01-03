@@ -1,119 +1,79 @@
 package tci_crawler.integration_testing;
 
-import TCI_Crawler.crawler.Spider;
-import TCI_Crawler.dto.SearchResult;
-import TCI_Crawler.exceptions.InvalidCategoryException;
-import TCI_Crawler.exceptions.InvalidSiteException;
-import TCI_Crawler.handlers.DetailsStorageHandler;
-import TCI_Crawler.searchObjects.SearchObjectBase;
+import TCI_Crawler.service.SpiderService;
+import org.apache.http.HttpStatus;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertArrayEquals;
+import javax.ws.rs.core.Response;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class SpiderIntegrationTest {
 
-    private Spider spider;
-    private String URL = "http://i315379.hera.fhict.nl/";
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    private SpiderService spiderService;
+    private String URL = "i315379.hera.fhict.nl/";
+    private static String JSON_REGEX = "(AndrÃ©)|([AndrÃ©])|\\W|(\\r)|(\\n)|\\s+";
 
     @Before
     public void setUp() {
-        this.spider = new Spider(new DetailsStorageHandler());
+        this.spiderService = new SpiderService();
     }
 
     @Test
-    public void testSearchForInvalidWebsite()
-            throws InvalidCategoryException, InvalidSiteException {
-        String websiteURL = "https://notarealwebsite.comm";
-        thrown.expect(InvalidSiteException.class);
-        thrown.expectMessage(String.format("Could not establish connection to URL '%s'.", websiteURL));
-
-        this.spider.search(websiteURL, null);
+    public void testCrawlForInvalidWebsiteShouldReturnBadRequest() {
+        String websiteURL = "notarealwebsite.comm";
+        Response response = this.spiderService.crawlWebsite(websiteURL);
+        String expectedMessage = "Could not establish connection to URL 'http://notarealwebsite.comm/'.";
+        assertEquals(HttpStatus.SC_BAD_REQUEST, response.getStatus());
+        assertEquals(expectedMessage, response.getEntity().toString());
     }
 
     @Test
-    public void testSearchValidWebsiteWithNoSearchWord()
-            throws InvalidCategoryException, InvalidSiteException {
-        SearchResult retrievedObject = this.spider.search(this.URL, null);
-
-        // Assert that the amount of books retrieved is as expected (4 for the specific site).
-        assertThat(retrievedObject.getBooks(), hasSize(4));
-        // Assert that the amount of music retrieved is as expected (4 for the specific site).
-        assertThat(retrievedObject.getMusic(), hasSize(4));
-        // Assert that the amount of movies retrieved is as expected (4 for the specific site).
-        assertThat(retrievedObject.getMovies(), hasSize(4));
-        // Assert that the identifier of the retrieved object is correct.
-        assertEquals(1,retrievedObject.getId());
-        // Assert that the search took at least 1 millisecond.
-        assertTrue(retrievedObject.getTime() > 0);
-
-        Comparator<String> stringComparator = Comparator.naturalOrder();
-
-        // Retrieve the book names and make a copy. Then sort the copy and
-        // verify that the original list is sorted as well by comparing the two lists.
-        List<String> originalBookNames = retrievedObject.getBooks()
-                .stream()
-                .map(SearchObjectBase::getName)
-                .collect(Collectors.toList());
-        List<String> bookNamesCopy = new ArrayList(originalBookNames);
-        bookNamesCopy.sort(stringComparator);
-
-        // Retrieve the music names and make a copy. Then sort the copy and
-        // verify that the original list is sorted as well by comparing the two lists.
-        List<String> originalMusicNames = retrievedObject.getMusic()
-                .stream()
-                .map(SearchObjectBase::getName)
-                .collect(Collectors.toList());
-        List<String> musicNamesCopy = new ArrayList(originalMusicNames);
-        musicNamesCopy.sort(stringComparator);
-
-        // Retrieve the movie names and make a copy. Then sort the copy and
-        // verify that the original list is sorted as well by comparing the two lists.
-        List<String> originalMovieNames = retrievedObject.getMovies()
-                .stream()
-                .map(SearchObjectBase::getName)
-                .collect(Collectors.toList());
-        List<String> movieNamesCopy = new ArrayList(originalMovieNames);
-        movieNamesCopy.sort(stringComparator);
-
-        // Compare both the original and copy list of names to verify that the original one
-        // is sorted as expected.
-        assertArrayEquals(bookNamesCopy.toArray(), originalBookNames.toArray());
-        assertArrayEquals(musicNamesCopy.toArray(), originalMusicNames.toArray());
-        assertArrayEquals(movieNamesCopy.toArray(), originalMovieNames.toArray());
+    public void testCrawlForInvalidWebsiteWithSearchWordShouldReturnBadRequest() {
+        String websiteURL = "notarealwebsite.comm";
+        Response response = this.spiderService.crawlWebsiteForItem(websiteURL, "Some title");
+        String expectedMessage = "Could not establish connection to URL 'http://notarealwebsite.comm/'.";
+        assertEquals(HttpStatus.SC_BAD_REQUEST, response.getStatus());
+        assertEquals(expectedMessage, response.getEntity().toString());
     }
 
     @Test
-    public void testSearchValidWebsiteWithSearchWord()
-            throws InvalidCategoryException, InvalidSiteException {
-        String searchWord = "Office Space";
-        SearchResult retrievedObject = this.spider.search(this.URL, searchWord);
+    public void testCrawlValidWebsiteWithNoSearchWord() {
+        Response response = this.spiderService.crawlWebsite(this.URL);
+        String expectedMessage = IntegrationTestsUtil.ConvertFromJSONFileToString("TotalCrawl.JSON");
 
-        // Assert that there are no books since the search word refers to a movie.
-        assertThat(retrievedObject.getBooks(), hasSize(0));
-        // Assert that there is no music since the search word refers to a movie.
-        assertThat(retrievedObject.getMusic(), hasSize(0));
-        // Assert there is exactly one movie.
-        assertThat(retrievedObject.getMovies(), hasSize(1));
-        // Assert that the identifier of the retrieved object is correct.
-        assertEquals(1,retrievedObject.getId());
-        // Assert that the search took at least 1 millisecond.
-        assertTrue(retrievedObject.getTime() > 0);
-        // Assert that the proper movie is returned by checking the title.
-        assertEquals(searchWord, retrievedObject.getMovies().get(0).getName());
+        String actualMessage = response.getEntity().toString();
+        String actualMessageCleaned = IntegrationTestsUtil.setTimeToZero(actualMessage).replaceAll(JSON_REGEX, "");
+        String expectedMessageCleaned = IntegrationTestsUtil.setTimeToZero(expectedMessage).replaceAll(JSON_REGEX, "");
+        assertEquals(expectedMessageCleaned, actualMessageCleaned);
+    }
+
+    @Test
+    public void testCrawlValidWebsiteWithSearchWord() {
+        String searchWord = "Forrest Gump";
+        String expectedMessage = IntegrationTestsUtil.ConvertFromJSONFileToString("SingleCrawlForForrestGump.JSON");
+        Response response = this.spiderService.crawlWebsiteForItem(this.URL, searchWord);
+
+        String actualMessage = response.getEntity().toString();
+        String actualMessageCleaned = IntegrationTestsUtil.setTimeToZero(actualMessage).replaceAll(JSON_REGEX, "");
+        String expectedMessageCleaned = IntegrationTestsUtil.setTimeToZero(expectedMessage).replaceAll(JSON_REGEX, "");
+        assertEquals(expectedMessageCleaned, actualMessageCleaned);
+    }
+
+    @Test
+    public void testGetCrawlDetailsForNonExistingCrawl() {
+        Response response = this.spiderService.getDetailsForCrawlID(1);
+        String expectedMessage = "No crawl details found for ID '1'.";
+        String actualMessage = response.getEntity().toString();
+        assertEquals(HttpStatus.SC_NO_CONTENT, response.getStatus());
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    @Test
+    public void testGetCrawlDetailsForExistingCrawl() {
+        this.spiderService.crawlWebsite(this.URL);
+        Response response = this.spiderService.getDetailsForCrawlID(1);
+        String actualMessage = response.getEntity().toString();
+        String z = "a";
     }
 }

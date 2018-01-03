@@ -37,26 +37,6 @@ public class SearchResult {
         this.sort();
     }
 
-    public ArrayList<Book> getBooks() {
-        return books;
-    }
-
-    public ArrayList<Music> getMusic() {
-        return music;
-    }
-
-    public ArrayList<Movie> getMovies() {
-        return movies;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public long getTime() {
-        return time;
-    }
-
     private void sort() {
         Collator usCollator = Collator.getInstance(Locale.US);
         this.books.sort((o1, o2) -> usCollator.compare(o1.getName(), o2.getName()));
