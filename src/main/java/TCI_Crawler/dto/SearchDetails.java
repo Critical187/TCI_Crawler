@@ -20,10 +20,6 @@ public class SearchDetails {
         this.pagesExplored = details.getPagesExplored();
         this.searchDepth = details.getSearchDepth();
     }
-
-    public int getID() {
-        return id;
-    }
 }
 
 

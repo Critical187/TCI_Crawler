@@ -6,6 +6,7 @@ import TCI_Crawler.exceptions.*;
 import TCI_Crawler.handlers.LinksHandler;
 import TCI_Crawler.handlers.SearchObjectHandler;
 import TCI_Crawler.searchObjects.*;
+import org.apache.http.HttpStatus;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -30,7 +31,7 @@ public class SpiderLegConnection {
             if (!connection.response().contentType().contains("text/html")) {
                 throw new InvalidSiteException(String.format("Website at URL '%s' does not contain HTML.", url));
             }
-            if (connection.response().statusCode() != 200) {
+            if (connection.response().statusCode() != HttpStatus.SC_OK) {
                 throw new InvalidSiteException(String.format("Could not establish connection to URL '%s'.", url));
             }
 

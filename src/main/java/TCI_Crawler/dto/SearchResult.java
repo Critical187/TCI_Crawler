@@ -18,7 +18,7 @@ public class SearchResult {
     private final ArrayList<Movie> movies;
     private final long time;
 
-    public SearchResult(int id,ArrayList<SearchObjectBase> retrievedObjects, long time) {
+    public SearchResult(int id, ArrayList<SearchObjectBase> retrievedObjects, long time) {
         this.id = id;
         this.time = time;
         this.books = retrievedObjects.stream()
@@ -35,26 +35,6 @@ public class SearchResult {
                 .collect(Collectors.toCollection(ArrayList::new));
 
         /*this.sort();*/
-    }
-
-    public ArrayList<Book> getBooks() {
-        return books;
-    }
-
-    public ArrayList<Music> getMusic() {
-        return music;
-    }
-
-    public ArrayList<Movie> getMovies() {
-        return movies;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public long getTime() {
-        return time;
     }
 
     private void sort() {

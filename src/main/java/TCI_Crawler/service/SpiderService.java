@@ -73,9 +73,12 @@ public class SpiderService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getDetailsForCrawlID(@PathParam("id") int id) {
         Optional<SearchDetails> searchDetails = this.treeSpider.getSearchDetails(id);
-        if (!searchDetails.isPresent())
-            return Response.status(Response.Status.NO_CONTENT).entity("No Specs found for ID: " + id).build();
-
+        if (!searchDetails.isPresent()) {
+            return Response
+                    .status(Response.Status.NO_CONTENT)
+                    .entity(String.format("No crawl details found for ID '%d'.", id))
+                    .build();
+        }
         //Convert To JSON
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(searchDetails.get());
 

@@ -22,10 +22,10 @@ import static org.junit.Assert.assertThat;
 public class SpiderServiceIntegrationTest {
     private static String SpiderServiceURL = "http://localhost:8080/WCA/api/crawler/";
     private static String DETAILS_URL = "details/";
-    private static String CRAWL_URL = "crawl/";
-    private static String WEBSITE_URL = "i315379.hera.fhict.nl";
-    private static String JSON_REGEX = "(AndrÃ©)|([AndrÃ©])|\\W|(\\r)|(\\n)|\\s+";
-    private static int ID = 0;
+        private static String CRAWL_URL = "crawl/";
+        private static String WEBSITE_URL = "i315379.hera.fhict.nl";
+        private static String JSON_REGEX = "(AndrÃ©)|([AndrÃ©])|\\W|(\\r)|(\\n)|\\s+";
+        private static int ID = 0;
 
     @Test
     public void givenURLDoesNotExist_whenSiteIsCrawled_then400IsReceived()
@@ -77,8 +77,8 @@ public class SpiderServiceIntegrationTest {
         String actualMessage = IntegrationTestsUtil.ConvertToString(entity);
         String actualMessageCleaned = (IntegrationTestsUtil.setTimeToZero(actualMessage)).replaceAll(JSON_REGEX, "");
         String expectedMessageCleaned = (IntegrationTestsUtil.setTimeToZero(expectedMessage)).replaceAll(JSON_REGEX, "");
-        assertEquals(expectedMessageCleaned, actualMessageCleaned);
-    }
+            assertEquals(expectedMessageCleaned, actualMessageCleaned);
+        }
 
     @Test
     public void

@@ -38,7 +38,7 @@ public class Node<T extends Comparable> implements Comparable {
     }
 
     public void removeNeighbour(Node unwantedNeighbourNode) {
-        Boolean removed = this.neighbours.remove(unwantedNeighbourNode);
+        this.neighbours.remove(unwantedNeighbourNode);
     }
 
     public void addNeighbours(Node neighbourNode) {
