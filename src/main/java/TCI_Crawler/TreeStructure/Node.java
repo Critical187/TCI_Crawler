@@ -6,15 +6,22 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Node<T> {
-    T data;
-    boolean visited;
-    Node<T> parent;
-    int weight = -1;
     HashSet<Node> neighbours;
-
+    private T data;
+    private boolean visited;
+    private Node<T> parent;
+    private int weight = -1;
     public Node(T data) {
         this.data = data;
         this.neighbours = new HashSet<>();
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
     }
 
     public Node<T> getParent() {
@@ -28,7 +35,11 @@ public class Node<T> {
     public T getData() {
         return data;
     }
-    public void removeNeighbour(Node unwantedNeighbourNode){this.neighbours.remove(unwantedNeighbourNode);}
+
+    public void removeNeighbour(Node unwantedNeighbourNode) {
+        this.neighbours.remove(unwantedNeighbourNode);
+    }
+
     public void addNeighbours(Node neighbourNode) {
         this.neighbours.add(neighbourNode);
     }
@@ -48,7 +59,7 @@ public class Node<T> {
 
     public void setWeight(int weight) {
         this.weight = weight;
-        for(Node node : neighbours){
+        for (Node node : neighbours) {
             node.setWeight(weight);
         }
     }

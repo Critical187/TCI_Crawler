@@ -11,29 +11,29 @@ public class Searcher {
     private int depth;
     private int tempDepth;
     private String titleToSearchFor;
-    public Searcher(List retrievedObjects){
+
+    public Searcher(List retrievedObjects) {
         this.retrievedObjects = retrievedObjects;
     }
+
     // Recursive DFS
-    public  void dfs(Node node)
-    {
+    public void dfs(Node node) {
         tempDepth++;
-        if(tempDepth>depth)
-            depth=tempDepth;
-        List<Node> neighbours=node.getNeighbours();
-        node.visited=true;
+        if (tempDepth > depth)
+            depth = tempDepth;
+        List<Node> neighbours = node.getNeighbours();
+        node.setVisited(true);
         for (int i = 0; i < neighbours.size(); i++) {
-            Node n=neighbours.get(i);
-            if(n!=null && !n.visited)
-            {
+            Node n = neighbours.get(i);
+            if (n != null && !n.isVisited()) {
                 dfs(n);
             }
         }
-        if (node.data != null) {
+        if (node.getData() != null) {
             if (titleToSearchFor == null) {
-                this.retrievedObjects.add(node.data);
-            } else if (Objects.equals(((SearchObjectBase)node.data).getName(), titleToSearchFor)) {
-                this.retrievedObjects.add(node.data);
+                this.retrievedObjects.add(node.getData());
+            } else if (Objects.equals(((SearchObjectBase) node.getData()).getName(), titleToSearchFor)) {
+                this.retrievedObjects.add(node.getData());
                 return;
             }
         }
