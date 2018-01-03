@@ -29,7 +29,7 @@ public class DetailsStorageHandlerTest {
         // Assert that the added details object is equal to the retrieved one.
         assertThat(details, samePropertyValuesAs(retrievedDetails.get()));
     }
-    
+
     @Test
     public void testRetrievingDetailsFromHandlerForNonExistingId() {
         Optional<SearchDetails> retrievedDetails = this.detailsStorageHandler.getDetails(1);

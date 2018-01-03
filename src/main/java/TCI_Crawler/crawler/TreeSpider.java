@@ -31,7 +31,7 @@ public class TreeSpider {
     public static void main(String... arg) {
         TreeSpider ts = new TreeSpider(new DetailsStorageHandler());
         try {
-            System.out.println(ts.search("http://i315379.hera.fhict.nl/", null));
+            System.out.println(ts.search("http://i315379.hera.fhict.nl/", "Forest"));
         } catch (InvalidCategoryException e) {
             e.printStackTrace();
         } catch (InvalidSiteException e) {
