@@ -74,6 +74,10 @@ public class SpiderIntegrationTest {
         this.spiderService.crawlWebsite(this.URL);
         Response response = this.spiderService.getDetailsForCrawlID(1);
         String actualMessage = response.getEntity().toString();
-        String z = "a";
+        String expectedMessage = IntegrationTestsUtil.ConvertFromJSONFileToString("SearchDetailsForOne.JSON");
+        String actualMessageCleaned = IntegrationTestsUtil.setElapsedTimeToZero(actualMessage).replaceAll(JSON_REGEX,"");
+        String expectedMessageCleaned = IntegrationTestsUtil.setElapsedTimeToZero(expectedMessage).replaceAll(JSON_REGEX,"");
+        // TODO change search-depth.
+        assertEquals(expectedMessageCleaned, actualMessageCleaned);
     }
 }
