@@ -1,7 +1,7 @@
 package TCI_Crawler.crawler;
 
 import TCI_Crawler.treeStructure.Searcher;
-import TCI_Crawler.dto.SearchDetails;
+import TCI_Crawler.dto.CrawlDetails;
 import TCI_Crawler.dto.SearchResult;
 import TCI_Crawler.exceptions.InvalidCategoryException;
 import TCI_Crawler.exceptions.InvalidSiteException;
@@ -44,7 +44,7 @@ public class TreeSpider {
 
         long elapsedTime = System.currentTimeMillis() - startTime;
         int id = this.detailsStorageHandler.getNextId();
-        this.detailsStorageHandler.addDetails(new TCI_Crawler.searchObjects.SearchDetails(
+        this.detailsStorageHandler.addDetails(new TCI_Crawler.searchObjects.CrawlDetails(
                 id,
                 elapsedTime,
                 searcher.getPagesExplored(),
@@ -53,10 +53,10 @@ public class TreeSpider {
         return new SearchResult(id, new ArrayList<>(this.retrievedObjects), elapsedTime);
     }
 
-    public Optional<SearchDetails> getSearchDetails(Integer id) {
+    public Optional<CrawlDetails> getSearchDetails(Integer id) {
         return this.detailsStorageHandler
                 .getDetails(id)
-                .flatMap(x -> Optional.of(new SearchDetails(x)));
+                .flatMap(x -> Optional.of(new CrawlDetails(x)));
     }
 
     //Might be placed in separate class for separating responsibilities

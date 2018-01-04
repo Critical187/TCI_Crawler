@@ -1,6 +1,6 @@
 package TCI_Crawler.handlers;
 
-import TCI_Crawler.searchObjects.SearchDetails;
+import TCI_Crawler.searchObjects.CrawlDetails;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,9 +20,9 @@ public class DetailsStorageHandlerTest {
 
     @Test
     public void testAddingAndRetrievingDetailFromHandler() {
-        SearchDetails details = new SearchDetails(1, 100, 1, 1);
+        CrawlDetails details = new CrawlDetails(1, 100, 1, 1);
         this.detailsStorageHandler.addDetails(details);
-        Optional<SearchDetails> retrievedDetails = this.detailsStorageHandler.getDetails(1);
+        Optional<CrawlDetails> retrievedDetails = this.detailsStorageHandler.getDetails(1);
 
         // Assert that there is indeed a value in the Optional container.
         assertTrue(retrievedDetails.isPresent());
@@ -32,7 +32,7 @@ public class DetailsStorageHandlerTest {
 
     @Test
     public void testRetrievingDetailsFromHandlerForNonExistingId() {
-        Optional<SearchDetails> retrievedDetails = this.detailsStorageHandler.getDetails(1);
+        Optional<CrawlDetails> retrievedDetails = this.detailsStorageHandler.getDetails(1);
         // Assert that there is no value in the Optional container.
         assertFalse(retrievedDetails.isPresent());
     }
