@@ -46,6 +46,6 @@ public class DetailsStorageHandlerTest {
         int retrievedId = this.detailsStorageHandler.getNextId();
 
         // Assert that after calling the method 100 times, the retrieved value is as expected.
-        assertEquals(101, retrievedId);
+        assertEquals(100, retrievedId);
     }
 }
