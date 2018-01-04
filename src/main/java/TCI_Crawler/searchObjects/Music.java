@@ -3,7 +3,6 @@ package TCI_Crawler.searchObjects;
 /**
  * A class, that represents a music object, found by the web crawler.
  */
-
 public class Music extends SearchObjectBase {
 
     /**

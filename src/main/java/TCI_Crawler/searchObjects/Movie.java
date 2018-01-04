@@ -3,7 +3,6 @@ package TCI_Crawler.searchObjects;
 /**
  * A class, that represents a movie object, found by the web crawler.
  */
-
 public class Movie extends SearchObjectBase {
 
     /**
@@ -32,7 +31,14 @@ public class Movie extends SearchObjectBase {
      * @param writers  Value for {@link Movie#writers}
      * @param stars    Value for {@link Movie#stars}
      */
-    public Movie(String name, String genre, int year, String format, String director, String[] writers, String[] stars) {
+    public Movie(
+            String name,
+            String genre,
+            int year,
+            String format,
+            String director,
+            String[] writers,
+            String[] stars) {
         super(name, genre, year, format);
         this.director = director;
         this.writers = writers;

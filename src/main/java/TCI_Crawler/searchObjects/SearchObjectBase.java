@@ -1,8 +1,7 @@
 package TCI_Crawler.searchObjects;
 
 /**
- * An abstract class, that represents an object, retrieved from the performed crawling
- * on a given page.
+ * An abstract class, that represents an object, retrieved from the performed crawling on a given page.
  */
 public abstract class SearchObjectBase implements Comparable<SearchObjectBase> {
 
@@ -68,10 +67,11 @@ public abstract class SearchObjectBase implements Comparable<SearchObjectBase> {
     public String getName() {
         return name;
     }
+
     @Override
     public int compareTo(SearchObjectBase o) {
         int value = 0;
-        SearchObjectBase other = (SearchObjectBase)o;
+        SearchObjectBase other = (SearchObjectBase) o;
         value = this.name.compareTo(other.name);
         return value;
     }
