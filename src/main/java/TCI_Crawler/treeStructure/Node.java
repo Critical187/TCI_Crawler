@@ -66,7 +66,7 @@ public class Node<T extends Comparable> implements Comparable {
     public void setWeight(int weight) {
         this.weight = weight;
         for (Node node : children) {
-            node.setWeight(weight);
+            node.setWeight(weight + 1);
         }
     }
     //this bad boy checks if the data is the same
