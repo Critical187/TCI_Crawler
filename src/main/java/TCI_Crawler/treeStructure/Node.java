@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class Node<T extends Comparable> implements Comparable {
     //The children of the Node, if it has none than it's a leaf.
-    TreeSet<Node> children;
+    private TreeSet<Node> children;
     //this holds the information of the node
     private T data;
     //when searching the tree you won't want to visit the same node twice
@@ -34,9 +34,9 @@ public class Node<T extends Comparable> implements Comparable {
         return parent;
     }
 
-    public void setParent(Node<T> parent) {
-        this.parent = parent;
-    }
+//    public void setParent(Node<T> parent) {
+//        this.parent = parent;
+//    }
 
     public T getData() {
         return data;
@@ -48,15 +48,18 @@ public class Node<T extends Comparable> implements Comparable {
 
     public void addChild(Node childNode) {
         this.children.add(childNode);
+        childNode.parent = this;
     }
 
-    public List getChildren() {
+    public List<Node> getChildren() {
         return children.stream().collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public void setChildren(List children) {
-        this.children = new TreeSet<Node>(children);
-
+    public void setChildren(List<Node> children) {
+        this.children = new TreeSet<>(children);
+        for (Node child : children){
+            child.parent = this;
+        }
     }
 
     public int getWeight() {
@@ -93,5 +96,29 @@ public class Node<T extends Comparable> implements Comparable {
                 "data=" + data +
                 ", weight=" + weight +
                 '}';
+    }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//
+//        Node<?> node = (Node<?>) o;
+//
+//        if (visited != node.visited) return false;
+//        if (weight != node.weight) return false;
+//        if (children != null ? !children.equals(node.children) : node.children != null) return false;
+//        if (data != null ? !data.equals(node.data) : node.data != null) return false;
+//        return parent != null ? parent.equals(node.parent) : node.parent == null;
+//    }
+
+    @Override
+    public int hashCode() {
+        int result = children != null ? children.hashCode() : 0;
+        result = 31 * result + (data != null ? data.hashCode() : 0);
+        result = 31 * result + (visited ? 1 : 0);
+        result = 31 * result + (parent != null ? parent.hashCode() : 0);
+        result = 31 * result + weight;
+        return result;
     }
 }

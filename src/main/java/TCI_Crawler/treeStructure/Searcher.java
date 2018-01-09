@@ -124,7 +124,7 @@ public class Searcher {
                 newNode.setWeight(parent.getWeight() + 1);
             }
             //Link our parent to the new node
-            newNode.setParent(parent);
+            //newNode.setParent(parent); //The parent is automatically set when you attach it to the parent
             //Make the children from this node
             for (String link : searchObjectWithLinks.getRetrievedLinks()) {
                 //recursive magic happens here
@@ -140,7 +140,7 @@ public class Searcher {
             if (parent.getWeight() < oldNode.getWeight()) { //If that's the case we detach from our old parent and this parent becomes our new parent
                 oldNode.getParent().removeChild(oldNode);
                 oldNode.setWeight(parent.getWeight() + 1);
-                oldNode.setParent(parent);
+                //oldNode.setParent(parent); //Parent is set automatically
                 parent.addChild(oldNode);
             }
         }
@@ -162,7 +162,7 @@ public class Searcher {
             }
             row += "\u2600";
             row+= (node.getData()!=null) ? ((SearchObjectBase)node.getData()).getName()+ " " :" " + node.getWeight() + " ";
-            for (Node child : node.children)
+            for (Node child : node.getChildren())
                 queue.add(child);
         }
         System.out.println(row);
