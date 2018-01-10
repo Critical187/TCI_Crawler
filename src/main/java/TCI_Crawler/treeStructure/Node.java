@@ -79,9 +79,9 @@ public class Node<T extends Comparable> implements Comparable {
         int value = 0;
         Node<T> otherNode = (Node<T>) o;
         if (otherNode.data == null || this.data == null) {
-
-            value = this.hashCode() > otherNode.hashCode() ? -1 : 1;
-            if(this.hashCode() == otherNode.hashCode())value = 0;
+            //nodes with data should go on the left side of a tree
+            value = otherNode.hashCode() - this.hashCode();
+            //if(this.hashCode() == otherNode.hashCode())value = 0;
             return value;
         }
 
@@ -114,11 +114,12 @@ public class Node<T extends Comparable> implements Comparable {
 
     @Override
     public int hashCode() {
-        int result = children != null ? children.hashCode() : 0;
-        result = 31 * result + (data != null ? data.hashCode() : 0);
-        result = 31 * result + (visited ? 1 : 0);
-        result = 31 * result + (parent != null ? parent.hashCode() : 0);
-        result = 31 * result + weight;
+        int result = children != null ? children.size() : 0;
+        result += (data != null ? data.hashCode() : 0);
+        result += (visited ? 1 : 0);
+        result += (parent != null ? parent.hashCode() : 0);
+        result += weight;
+        result = 31 * result + result;
         return result;
     }
 }

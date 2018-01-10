@@ -12,7 +12,7 @@ public class Searcher {
     //uses the url as a key to store the nodes
     private final TreeMap<String, Node<SearchObjectBase>> listOfNodes = new TreeMap<>();
     //The Root Node for easy accessing.
-    private Node<SearchObjectBase> rootNode;
+    protected Node<SearchObjectBase> rootNode;
     //All the SearchObjectBases from the nodes collected toegether.
     private TreeSet retrievedObjects;
     //The deepest depth of our search
@@ -107,13 +107,13 @@ public class Searcher {
         if (!listOfNodes.containsKey(uniqueURL)) {
             //Alright new page so lets get diggin'.
             //Get a new leg to fetch the contents from the HTML.
-            SpiderLegConnection leg = new SpiderLegConnection();
+            SpiderLegConnection leg = createSpiderLegConnection();
             //Store it inside a variable as we need it more than once.
             SearchObjectWithLinks searchObjectWithLinks = leg.crawlAndGather(url);
             //Create a new node with setting the data from SearchObjectWithLInks
             Node newNode = new Node<SearchObjectBase>(searchObjectWithLinks.getRetrievedObject());
             //Put our new node in the list of Nodes
-            listOfNodes.put(url, newNode);
+            listOfNodes.put(uniqueURL, newNode);
             //This one doesn't have a parent so it must be the Root Node.
             if (parent == null) {
                 rootNode = newNode;
@@ -144,6 +144,10 @@ public class Searcher {
                 parent.addChild(oldNode);
             }
         }
+    }
+
+    protected SpiderLegConnection createSpiderLegConnection() {
+        return new SpiderLegConnection();
     }
 
     //HA we actually breadth First Search the Tree to print the correct layout

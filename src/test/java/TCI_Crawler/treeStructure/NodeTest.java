@@ -25,9 +25,9 @@ public class NodeTest {
         Node<String> node3 = new Node<>("BB");
         return (new Object[][]{
                 {node1, 0, node1},
-                {node1, -1, node2},
+                {node1, -66560, node2},
                 {node1, -1, node3},
-                {node2, 1, node1}
+                {node2, 66560, node1}
         });
     }
 
