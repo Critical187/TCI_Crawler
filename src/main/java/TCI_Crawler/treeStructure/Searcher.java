@@ -21,7 +21,7 @@ public class Searcher {
     /**
      * The root node of the tree, used by this searcher.
      */
-    private Node<SearchObjectBase> rootNode;
+    protected Node<SearchObjectBase> rootNode;
 
     /**
      * The tree of retrieved objects from all nodes.
@@ -69,23 +69,14 @@ public class Searcher {
         return this.pagesExplored;
     }
 
-
-    /**
-     * @return Gets the root node of this searcher.
-     */
-    public Node<SearchObjectBase> getRootNode() {
-        return this.rootNode;
-    }
-
-
     /**
      * Recursively uses the DFS algorithm to search, starting from the root node.
      *
      * @param node The node to look at.
      */
-    private void depthFirstSearch(Node node) {
-        // As this is a recursive we need to check if we didn't already find the object.
-        if (this.objectFound) {
+    private void depthFirstSearch(Node<SearchObjectBase> node) {
+        //as this is a recursive we need to check if we didn't already find the object.
+        if (objectFound){
             return;
         }
         // Each time we go deeper and we store that with the variable.
@@ -111,12 +102,11 @@ public class Searcher {
 
         // We check if we found one that actually holds information.
         if (node.getData() != null) {
-            SearchObjectBase objectBase = (SearchObjectBase) node.getData();
             if (titleToSearchFor == null) {
-                this.retrievedObjects.add(objectBase);
-            } else if (Objects.equals(objectBase.getName(), titleToSearchFor)) {
-                this.retrievedObjects.add(objectBase);
-                this.objectFound = true;
+                this.retrievedObjects.add(node.getData());
+            } else if (Objects.equals(( node.getData()).getName(), titleToSearchFor)) {
+                this.retrievedObjects.add(node.getData());
+                objectFound = true;
             }
         }
         // We reached the point where we can't go deeper.
@@ -196,19 +186,18 @@ public class Searcher {
                 //recursive magic happens here
                 this.makeNode(newNode, link);
             }
-        } else {
-            // Alright our Node already exists but we can check if the path towards this node is shorter now.
-            // NVM this is the Root. ABORT (Wait maybe a second ROOT!)
-            if (parent == null) {
-                return;
-            }
+
+        } else {    //Alright our Node already exists but we can check if the path towards this node is shorter now.
+            /*if (parent == null) //NVM this is the Root. ABORT (Wait maybe a second ROOT!)
+                return; */
             // Get that oldNode because we need to do some checks
             Node<SearchObjectBase> oldNode = listOfNodes.get(uniqueURL);
             // Check if the parent is higher up the tree than node
-            if (parent.getWeight() < oldNode.getWeight()) { //If that's the case we detach from our old parent and this parent becomes our new parent
+            if (parent.getWeight() - oldNode.getWeight() >= 2) { //If that's the case we detach from our old parent and this parent becomes our new parent
                 oldNode.getParent().removeChild(oldNode);
-                oldNode.setWeight(parent.getWeight() + 1);
                 parent.addChild(oldNode);
+                oldNode.setWeight(parent.getWeight() + 1);
+
             }
         }
     }
@@ -218,7 +207,7 @@ public class Searcher {
      *
      * @return A new {@link SpiderLegConnection} object.
      */
-    SpiderLegConnection createSpiderLegConnection() {
+    protected SpiderLegConnection createSpiderLegConnection() {
         return new SpiderLegConnection();
     }
 

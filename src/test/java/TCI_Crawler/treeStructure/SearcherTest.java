@@ -35,9 +35,9 @@ public class SearcherTest {
 
     /**
      * The Tree should looks like this
-     *              (RootNode "Root")
-     *              /       \
-     *(FirstLevelNode "a1") (EmptyFirstLevelNode "a2")
+     *                       (RootNode "Root")
+     *                         /       \
+     *       (FirstLevelNode "a1") (EmptyFirstLevelNode "a2")
      *          /
      *(SecondLevelNode "b1")
      * @throws InvalidCategoryException
@@ -51,6 +51,7 @@ public class SearcherTest {
         }
        searcher = Mockito.spy(new Searcher(treeSet));
        doReturn(spiderLegConnection).when(searcher).createSpiderLegConnection();
+
        when(spiderLegConnection.crawlAndGather("Root"))
                .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(0),new ArrayList<>(Arrays.asList(new String[]{"a1","a2"}))));
        when(spiderLegConnection.crawlAndGather("a1"))
@@ -62,22 +63,22 @@ public class SearcherTest {
 
         searcher.makeNode(null, "Root");
 
-        Node<SearchObjectBase> rootNode = searcher.getRootNode();
-        Node<SearchObjectBase> KebebNode = rootNode.getChildren().get(0);
-        Node<SearchObjectBase> KebubNode = KebebNode.getChildren().get(0);
-        Node<SearchObjectBase> KebobNode = rootNode.getChildren().get(1);
+        Node<SearchObjectBase> rootNode = searcher.rootNode;
+        Node<SearchObjectBase> a1Node = rootNode.getChildren().get(0);
+        Node<SearchObjectBase> b1Node = a1Node.getChildren().get(0);
+        Node<SearchObjectBase> a2Node = rootNode.getChildren().get(1);
         //check if RootNode has the mocked object
         assertEquals(rootNode.getData(),mockedSearchObjects.get(0));
         //check if RootNode has children so that it actually has a tree
         assertTrue(rootNode.getChildren().size()>0);
         //check if the first level child holds the mocked object
-        assertEquals(KebebNode.getData(),mockedSearchObjects.get(1));
+        assertEquals(a1Node.getData(),mockedSearchObjects.get(1));
         //check if the first level child has children
-        assertTrue(KebebNode.getChildren().size()>0);
+        assertTrue(a1Node.getChildren().size()>0);
         //check if the second level child has the object
-        assertEquals(KebubNode.getData(),mockedSearchObjects.get(2));
+        assertEquals(b1Node.getData(),mockedSearchObjects.get(2));
         //check if the other first level child holds no object
-        assertEquals(KebobNode.getData(),null);
+        assertEquals(a2Node.getData(),null);
 
     }
 }

@@ -20,11 +20,16 @@ public class NodeTest {
         Node<String> node1 = new Node<>("AA");
         Node<String> node2 = new Node<>(null);
         Node<String> node3 = new Node<>("BB");
+        Node<String> node4 = new Node<>(null);
         return (new Object[][]{
                 {node1, 0, node1},
                 {node1, -1, node2},
                 {node1, -1, node3},
-                {node2, 1, node1}
+                {node2, 1, node1},
+                {node2, 0, node2},
+                {node2, -1, node4},
+                {node4, 1, node2},
+                {node3, -1, node4}
         });
     }
 
