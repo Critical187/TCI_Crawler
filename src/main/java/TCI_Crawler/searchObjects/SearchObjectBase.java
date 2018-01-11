@@ -69,11 +69,8 @@ public abstract class SearchObjectBase implements Comparable<SearchObjectBase> {
     }
 
     @Override
-    public int compareTo(SearchObjectBase o) {
-        int value = 0;
-        SearchObjectBase other = (SearchObjectBase) o;
-        value = this.name.compareTo(other.name);
-        return value;
+    public int compareTo(SearchObjectBase other) {
+        return this.name.compareTo(other.name);
     }
 
     @Override

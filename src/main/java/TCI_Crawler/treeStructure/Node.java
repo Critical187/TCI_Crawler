@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-public class Node<T extends Comparable> implements Comparable {
+public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
     //The children of the Node, if it has none than it's a leaf.
     private TreeSet<Node> children;
     //this holds the information of the node
@@ -52,7 +52,7 @@ public class Node<T extends Comparable> implements Comparable {
     }
 
     public List<Node> getChildren() {
-        return children.stream().collect(Collectors.toCollection(ArrayList::new));
+        return new ArrayList<>(children);
     }
 
     public void setChildren(List<Node> children) {
@@ -75,9 +75,8 @@ public class Node<T extends Comparable> implements Comparable {
     //this bad boy checks if the data is the same
     //if data is missing: it checks if the nodes are the same using the hashcodes.
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(Node<T> otherNode) {
         int value = 0;
-        Node<T> otherNode = (Node<T>) o;
         if (otherNode.data == null || this.data == null) {
             //nodes with data should go on the left side of a tree
             value = otherNode.hashCode() - this.hashCode();
