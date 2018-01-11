@@ -132,8 +132,8 @@ public class Searcher {
             }
 
         } else {    //Alright our Node already exists but we can check if the path towards this node is shorter now.
-            /*if (parent == null) //NVM this is the Root. ABORT
-                return;*/
+            if (parent == null) //NVM this is the Root. ABORT (Wait maybe a second ROOT!)
+                return;
             //Get that oldNode because we need to do some checks
             Node<SearchObjectBase> oldNode = listOfNodes.get(uniqueURL);
             //Check if the parent is higher up the tree than node
