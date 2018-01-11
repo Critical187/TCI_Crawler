@@ -27,9 +27,7 @@ public class TreeSpider {
         try {
             System.out.println(ts.search("http://i315379.hera.fhict.nl/", "A"));
             ts.searcher.printTree();
-        } catch (InvalidCategoryException e) {
-            e.printStackTrace();
-        } catch (InvalidSiteException e) {
+        } catch (InvalidCategoryException | InvalidSiteException e) {
             e.printStackTrace();
         }
     }
