@@ -108,12 +108,12 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 
     @Override
     public int hashCode() {
-        int result = children != null ? children.size() : 0;
-        result += (data != null ? data.hashCode() : 0);
+        int result = children != null ? children.hashCode()/245643 : 0;
+        result += (data != null ? data.hashCode()/4293451 : 0);
         result += (visited ? 1 : 0);
-        result += (parent != null ? parent.hashCode() : 0);
+        result += (parent != null ? parent.hashCode()/634351324 : 0);
         result += weight;
-        result = 31 * result + result;
-        return result;
+        result = 21 * result + result;
+        return Math.abs(result);
     }
 }
