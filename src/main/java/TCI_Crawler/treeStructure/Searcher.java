@@ -211,27 +211,5 @@ public class Searcher {
         return new SpiderLegConnection();
     }
 
-    // TODO remove this.
-    //HA we actually breadth First Search the Tree to print the correct layout
-    public void printTree() {
-        //BreadthFirstSearch As a best
-        Queue<Node<SearchObjectBase>> queue = new LinkedList<Node<SearchObjectBase>>();
-        String row = "";
-        queue.add(rootNode);
-        int printDepth = 0;
-        while (!queue.isEmpty()) {
-            Node<SearchObjectBase> node = queue.remove();
-            if (node.getWeight() > printDepth) {
-                System.out.println(row);
-                printDepth++;
-                row = "";
-            }
-            row += "\u2600";
-            row += (node.getData() != null) ?
-                    (node.getData()).getName() + " " : " " + node.getWeight() + " ";
-            for (Node child : node.getChildren())
-                queue.add(child);
-        }
-        System.out.println(row);
-    }
+
 }

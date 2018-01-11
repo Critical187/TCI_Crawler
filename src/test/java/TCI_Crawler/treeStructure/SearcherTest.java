@@ -53,14 +53,17 @@ public class SearcherTest {
        doReturn(spiderLegConnection).when(searcher).createSpiderLegConnection();
 
        when(spiderLegConnection.crawlAndGather("Root"))
-               .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(0),new ArrayList<>(Arrays.asList(new String[]{"a1","a2"}))));
+               .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(0),new ArrayList<>(Arrays.asList(new String[]{"a1","a2",}))));
        when(spiderLegConnection.crawlAndGather("a1"))
                 .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(1),new ArrayList<String>(Arrays.asList(new String[]{"b1"}))));
         when(spiderLegConnection.crawlAndGather("b1"))
                 .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(2),new ArrayList<String>(Arrays.asList(new String[]{}))));
         when(spiderLegConnection.crawlAndGather("a2"))
                 .thenReturn(new SearchObjectWithLinks(null,new ArrayList<String>(Arrays.asList(new String[]{"a1","root"}))));
-
+        when(spiderLegConnection.crawlAndGather("zzz"))
+                .thenReturn(new SearchObjectWithLinks(null,new ArrayList<String>(Arrays.asList(new String[]{"ccc"}))));
+        when(spiderLegConnection.crawlAndGather("zzz"))
+                .thenReturn(new SearchObjectWithLinks(null,new ArrayList<String>(Arrays.asList(new String[]{"a2"}))));
         searcher.makeNode(null, "Root");
 
         Node<SearchObjectBase> rootNode = searcher.rootNode;

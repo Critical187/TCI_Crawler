@@ -42,16 +42,6 @@ public class TreeSpider {
         this.searcher = new Searcher(this.retrievedObjects);
     }
 
-    // TODO remove this.
-    public static void main(String... arg) {
-        TreeSpider ts = new TreeSpider(new DetailsStorageHandler());
-        try {
-            System.out.println(ts.search("http://i315379.hera.fhict.nl/", "A"));
-            ts.searcher.printTree();
-        } catch (InvalidCategoryException | InvalidSiteException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Performs a search on the website, located on the given URL. If titleToSearchFor is not null then the search
