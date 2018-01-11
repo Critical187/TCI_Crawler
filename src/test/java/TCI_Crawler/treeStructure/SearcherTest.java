@@ -6,17 +6,10 @@ import TCI_Crawler.exceptions.InvalidSiteException;
 import TCI_Crawler.searchObjects.SearchObjectBase;
 import TCI_Crawler.searchObjects.SearchObjectWithLinks;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.junit.MockitoRule;
-
-import javax.ws.rs.container.PreMatching;
+import org.mockito.MockitoAnnotations;;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.TreeSet;
@@ -24,7 +17,6 @@ import java.util.TreeSet;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
-
 
 public class SearcherTest {
     private Searcher searcher;
@@ -88,5 +80,4 @@ public class SearcherTest {
         assertEquals(KebobNode.getData(),null);
 
     }
-
 }
