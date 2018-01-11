@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
+    public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
     //The children of the Node, if it has none than it's a leaf.
     private TreeSet<Node> children;
     //this holds the information of the node
@@ -47,8 +47,9 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
     }
 
     public void addChild(Node childNode) {
-        this.children.add(childNode);
         childNode.parent = this;
+        this.children.add(childNode);
+
     }
 
     public List<Node> getChildren() {
@@ -56,10 +57,11 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
     }
 
     public void setChildren(List<Node> children) {
-        this.children = new TreeSet<>(children);
         for (Node child : children){
             child.parent = this;
         }
+        this.children = new TreeSet<>(children);
+
     }
 
     public int getWeight() {
@@ -76,11 +78,23 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
     //if data is missing: it checks if the nodes are the same using the hashcodes.
     @Override
     public int compareTo(Node<T> otherNode) {
-        if (otherNode.data == null || this.data == null) {
+        if (otherNode.data == null && this.data == null) {
             //nodes with data should go on the left side of a tree
-            return otherNode.hashCode() - this.hashCode();
+            if(this.hashCode() == otherNode.hashCode())
+                return 0;
+            if(this.hashCode() > otherNode.hashCode())
+                return -1;
+            if(this.hashCode() < otherNode.hashCode())
+                return 1;
         }
-
+        if(this.data == null){
+            //This node doesn't contain any data so it is less important than the otherNode
+            return 1;
+        }
+        if(otherNode.data == null){
+            //the other node doesn't contain any data so it this is more important than the other node
+            return -1;
+        }
         return this.data.compareTo(otherNode.data);
     }
 
@@ -92,27 +106,4 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
                 '}';
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//
-//        Node<?> node = (Node<?>) o;
-//
-//        if (visited != node.visited) return false;
-//        if (weight != node.weight) return false;
-//        if (children != null ? !children.equals(node.children) : node.children != null) return false;
-//        if (data != null ? !data.equals(node.data) : node.data != null) return false;
-//        return parent != null ? parent.equals(node.parent) : node.parent == null;
-//    }
-
-    @Override
-    public int hashCode() {
-        int result = children != null ? 1 : 0;
-        result += (data != null ? data.hashCode() : super.hashCode());
-        result += (visited ? 1 : 0);
-        result += (parent != null ? parent.hashCode() : 0);
-        result = 5 * result;
-        return Math.abs(result);
-    }
 }

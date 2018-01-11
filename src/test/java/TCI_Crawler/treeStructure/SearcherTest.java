@@ -43,11 +43,11 @@ public class SearcherTest {
 
     /**
      * The Tree should looks like this
-     *              (RootNode)
+     *              (RootNode "Root")
      *              /       \
-     *   (FirstLevelNode) (EmptyFirstLevelNode)
+     *(FirstLevelNode "a1") (EmptyFirstLevelNode "a2")
      *          /
-     *(SecondLevelNode)
+     *(SecondLevelNode "b1")
      * @throws InvalidCategoryException
      * @throws InvalidSiteException
      */
@@ -59,16 +59,16 @@ public class SearcherTest {
         }
        searcher = Mockito.spy(new Searcher(treeSet));
        doReturn(spiderLegConnection).when(searcher).createSpiderLegConnection();
-       when(spiderLegConnection.crawlAndGather("Kebab"))
-               .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(0),new ArrayList<>(Arrays.asList(new String[]{"Kebeb","Kebob"}))));
-       when(spiderLegConnection.crawlAndGather("Kebeb"))
-                .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(1),new ArrayList<String>(Arrays.asList(new String[]{"Kebub"}))));
-        when(spiderLegConnection.crawlAndGather("Kebub"))
+       when(spiderLegConnection.crawlAndGather("Root"))
+               .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(0),new ArrayList<>(Arrays.asList(new String[]{"a1","a2"}))));
+       when(spiderLegConnection.crawlAndGather("a1"))
+                .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(1),new ArrayList<String>(Arrays.asList(new String[]{"b1"}))));
+        when(spiderLegConnection.crawlAndGather("b1"))
                 .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(2),new ArrayList<String>(Arrays.asList(new String[]{}))));
-        when(spiderLegConnection.crawlAndGather("Kebob"))
-                .thenReturn(new SearchObjectWithLinks(null,new ArrayList<String>(Arrays.asList(new String[]{"Kebob","kebab"}))));
+        when(spiderLegConnection.crawlAndGather("a2"))
+                .thenReturn(new SearchObjectWithLinks(null,new ArrayList<String>(Arrays.asList(new String[]{"a1","root"}))));
 
-        searcher.makeNode(null, "Kebab");
+        searcher.makeNode(null, "Root");
 
         Node<SearchObjectBase> rootNode = searcher.rootNode;
         Node<SearchObjectBase> KebebNode = rootNode.getChildren().get(0);
