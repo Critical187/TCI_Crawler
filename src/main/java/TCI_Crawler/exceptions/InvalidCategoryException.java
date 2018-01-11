@@ -4,7 +4,7 @@ import TCI_Crawler.searchObjects.SearchObjectBase;
 
 /**
  * A class, that represents an exception thrown when a {@link SearchObjectBase} that was found
- * has invalid category.
+ * has an invalid category.
  */
 public class InvalidCategoryException extends Exception {
 

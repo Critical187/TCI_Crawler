@@ -8,148 +8,209 @@ import TCI_Crawler.searchObjects.SearchObjectWithLinks;
 
 import java.util.*;
 
+/**
+ * A searcher that can crawl through a tree of nodes.
+ */
 public class Searcher {
-    //uses the url as a key to store the nodes
+
+    /**
+     * A map of strings and nodes. Uses the URL from where the object was retrieved as a key.
+     */
     private final TreeMap<String, Node<SearchObjectBase>> listOfNodes = new TreeMap<>();
-    //The Root Node for easy accessing.
-    protected Node<SearchObjectBase> rootNode;
-    //All the SearchObjectBases from the nodes collected toegether.
-    private TreeSet retrievedObjects;
-    //The deepest depth of our search
+
+    /**
+     * The root node of the tree, used by this searcher.
+     */
+    private Node<SearchObjectBase> rootNode;
+
+    /**
+     * The tree of retrieved objects from all nodes.
+     */
+    private TreeSet<SearchObjectBase> retrievedObjects;
+
+    /**
+     * The highest depth of the search.
+     */
     private int depth = -1;
-    //The depth of the recursive used to check how deep we are.
+
+    /**
+     * The current depth, used to verify how deep the search is.
+     */
     private int tempDepth = 0;
-    //The nodes that we visited to collect the data.
+
+    /**
+     * The amount of pages explored.
+     */
     private int pagesExplored = 0;
-    //if we find the object we should stop our recursive.
+
+    /**
+     * Indicates whether the object that is looked for has been found. If so the search can be stopped.
+     */
     private boolean objectFound = false;
-    //The title to search for, for easy accessing.
+
+    /**
+     * The title to search for. Can be null to perform a complete search.
+     */
     private String titleToSearchFor;
-    //link the retrieved objects from the Spider with our own variable.
-    public Searcher(TreeSet retrievedObjects) {
+
+    /**
+     * Initializes a new instance of the {@link Searcher} class.
+     *
+     * @param retrievedObjects The tree set to search.
+     */
+    public Searcher(TreeSet<SearchObjectBase> retrievedObjects) {
         this.retrievedObjects = retrievedObjects;
     }
 
+    /**
+     * @return Gets the amount of pages explored.
+     */
     public int getPagesExplored() {
         return pagesExplored;
     }
 
-    // Recursive DFS
-    private void dfs(Node node) {
-        //as this is a recursive we need to check if we didn't already find the object.
-        if (objectFound)
+    /**
+     * Recursively uses the DFS algorithm to search, starting from the root node.
+     *
+     * @param node The node to look at.
+     */
+    private void depthFirstSearch(Node node) {
+        // As this is a recursive we need to check if we didn't already find the object.
+        if (this.objectFound) {
             return;
-        //Each time we go deeper and we store that with the variable.
-        tempDepth++;
-        //We look at a new page.
-        pagesExplored++;
-        //If this is the deepest search so far, then we store that.
-        if (tempDepth > depth)
-            depth = tempDepth;
-        //time to loop through the children
+        }
+        // Each time we go deeper and we store that with the variable.
+        this.tempDepth++;
+        this.pagesExplored++;
+
+        // If this is the deepest search so far, then we store that.
+        if (this.tempDepth > this.depth) {
+            this.depth = this.tempDepth;
+        }
+
+        // Time to loop through the children
         List<Node> children = node.getChildren();
-        //we have visited this node so flag him so we don't accidentally do it twice.
+        // We have visited this node so flag him so we don't accidentally do it twice.
         node.setVisited(true);
-        //let's see if this one has children that hasn't been searched for yet. We need the deepest first.
-        for (int i = 0; i < children.size(); i++) {
-            Node n = children.get(i);
+        // Let's see if this one has children that hasn't been searched for yet. We need the deepest first.
+        for (Node n : children) {
             if (n != null && !n.isVisited()) {
-                //here is where our recursive magic happens
-                dfs(n);
+                // Here is where our recursive magic happens
+                this.depthFirstSearch(n);
             }
         }
-        //We check if we found one that actually holds information.
+
+        // We check if we found one that actually holds information.
         if (node.getData() != null) {
+            SearchObjectBase objectBase = (SearchObjectBase) node.getData();
             if (titleToSearchFor == null) {
-                this.retrievedObjects.add(node.getData());
-            } else if (Objects.equals(((SearchObjectBase) node.getData()).getName(), titleToSearchFor)) {
-                this.retrievedObjects.add(node.getData());
-                objectFound = true;
+                this.retrievedObjects.add(objectBase);
+            } else if (Objects.equals(objectBase.getName(), titleToSearchFor)) {
+                this.retrievedObjects.add(objectBase);
+                this.objectFound = true;
             }
         }
-        //We reached the point where we can't go deeper.
-        tempDepth--;
-    }
-    //this calls our inner method which is recursive.
-    public void depthFirstSearch() {
-        dfs(rootNode);
+        // We reached the point where we can't go deeper.
+        this.tempDepth--;
     }
 
+    /**
+     * Performs a depth first search for the root node.
+     */
+    public void depthFirstSearch() {
+        this.depthFirstSearch(this.rootNode);
+    }
+
+    /**
+     * Sets the title to search for
+     *
+     * @param titleToSearchFor The new title to search for.
+     */
     public void setTitleToSearchFor(String titleToSearchFor) {
         this.titleToSearchFor = titleToSearchFor;
     }
 
+    /**
+     * @return Gets the depth of this search.
+     */
     public int getDepth() {
-        return depth;
-    }
-    //Clean up so that we can have another round without using values from the previous search
-    public void clear() {
-        depth = -1;
-        tempDepth = 0;
-        titleToSearchFor = null;
-        listOfNodes.clear();
-        pagesExplored = 0;
-        objectFound = false;
+        return this.depth;
     }
 
     /**
-     * This beast is another recursive wonder. We use recursion to map out the tree.
-     * It sorts out if there is a faster way to a node
+     * Cleans up the search so that another round without using values from the previous search can be performed.
+     */
+    public void clear() {
+        this.depth = -1;
+        this.tempDepth = 0;
+        this.titleToSearchFor = null;
+        this.listOfNodes.clear();
+        this.pagesExplored = 0;
+        this.objectFound = false;
+    }
+
+    /**
+     * Map out the tree recursively and sorts out if there is a faster way to a node
+     *
      * @param parent The parent of the node about to be created
-     * @param url The url of the node
-     * @throws InvalidCategoryException
-     * @throws InvalidSiteException
+     * @param url    The url of the node
+     * @throws InvalidCategoryException If a search object was found but its category is different from the allowed
+     *                                  ones : 'Music', 'Books' or 'Movies'
+     * @throws InvalidSiteException     When a connection to the site could not be established.
      */
     public void makeNode(Node parent, String url) throws InvalidCategoryException, InvalidSiteException {
-        //Make sure that we don't have some strange cat?Books and cat?books which point to the same page. But gets treated differently
+        // Make sure that we don't have some strange cat?Books and cat?books which point to the same page but gets
+        // treated differently
         String uniqueURL = url.toLowerCase();
-        //Check if we didn't already visited this page.
-        if (!listOfNodes.containsKey(uniqueURL)) {
-            //Alright new page so lets get diggin'.
-            //Get a new leg to fetch the contents from the HTML.
+        // Check if we didn't already visited this page.
+        if (!this.listOfNodes.containsKey(uniqueURL)) {
+            // Alright new page so lets get diggin'.
+            // Get a new leg to fetch the contents from the HTML.
             SpiderLegConnection leg = createSpiderLegConnection();
-            //Store it inside a variable as we need it more than once.
+            // Store it inside a variable as we need it more than once.
             SearchObjectWithLinks searchObjectWithLinks = leg.crawlAndGather(url);
-            //Create a new node with setting the data from SearchObjectWithLInks
-            Node newNode = new Node<SearchObjectBase>(searchObjectWithLinks.getRetrievedObject());
-            //Put our new node in the list of Nodes
-            listOfNodes.put(uniqueURL, newNode);
-            //This one doesn't have a parent so it must be the Root Node.
+
+            Node<SearchObjectBase> newNode = new Node<>(searchObjectWithLinks.getRetrievedObject());
+            // Put our new node in the list of Nodes
+            this.listOfNodes.put(uniqueURL, newNode);
+            // This one doesn't have a parent so it must be the Root Node.
             if (parent == null) {
-                rootNode = newNode;
-                rootNode.setWeight(0);
+                this.rootNode = newNode;
+                this.rootNode.setWeight(0);
             } else {
                 //Link our node to the parent
                 parent.addChild(newNode);
                 newNode.setWeight(parent.getWeight() + 1);
             }
-            //Link our parent to the new node
-            //newNode.setParent(parent); //The parent is automatically set when you attach it to the parent
-            //Make the children from this node
+            // Link our parent to the new node and make the children from this node.
             for (String link : searchObjectWithLinks.getRetrievedLinks()) {
                 //recursive magic happens here
-                makeNode(newNode, link);
+                this.makeNode(newNode, link);
             }
-
-        } else {    //Alright our Node already exists but we can check if the path towards this node is shorter now.
-            /*if (parent == null) //NVM this is the Root. ABORT
-                return;*/
-            //Get that oldNode because we need to do some checks
-            Node<SearchObjectBase> oldNode = listOfNodes.get(uniqueURL);
-            //Check if the parent is higher up the tree than node
-            if (parent.getWeight() < oldNode.getWeight()) { //If that's the case we detach from our old parent and this parent becomes our new parent
+        } else {
+            // Alright our Node already exists but we can check if the path towards this node is shorter now.
+            // Get that oldNode because we need to do some checks
+            Node<SearchObjectBase> oldNode = this.listOfNodes.get(uniqueURL);
+            // Check if the parent is higher up the tree than node
+            if (parent.getWeight() < oldNode.getWeight()) {
+                // If that's the case we detach from our old parent and this parent becomes our new parent
                 oldNode.getParent().removeChild(oldNode);
                 oldNode.setWeight(parent.getWeight() + 1);
-                //oldNode.setParent(parent); //Parent is set automatically
                 parent.addChild(oldNode);
             }
         }
     }
 
-    protected SpiderLegConnection createSpiderLegConnection() {
+    /**
+     * Creates a new {@link SpiderLegConnection} instance.
+     *
+     * @return A new {@link SpiderLegConnection} object.
+     */
+    SpiderLegConnection createSpiderLegConnection() {
         return new SpiderLegConnection();
     }
 
+    // TODO remove this.
     //HA we actually breadth First Search the Tree to print the correct layout
     public void printTree() {
         //BreadthFirstSearch As a best
@@ -165,7 +226,8 @@ public class Searcher {
                 row = "";
             }
             row += "\u2600";
-            row+= (node.getData()!=null) ? ((SearchObjectBase)node.getData()).getName()+ " " :" " + node.getWeight() + " ";
+            row += (node.getData() != null) ?
+                    ( node.getData()).getName() + " " : " " + node.getWeight() + " ";
             for (Node child : node.getChildren())
                 queue.add(child);
         }

@@ -73,6 +73,7 @@ public abstract class SearchObjectBase implements Comparable<SearchObjectBase> {
         return this.name.compareTo(other.name);
     }
 
+    // TODO remove this
     @Override
     public String toString() {
         return "SearchObjectBase{" +

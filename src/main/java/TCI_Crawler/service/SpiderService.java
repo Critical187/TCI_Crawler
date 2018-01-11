@@ -12,27 +12,41 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Optional;
 
+/**
+ * The service, exposing the crawler API functionality.
+ */
 @Path("crawler")
 @Singleton
 public class SpiderService {
 
+    /**
+     * The spider to be used in this service.
+     */
     private final TreeSpider treeSpider;
 
+    /**
+     * Initializes a new instance of the {@link SpiderService} class.
+     */
     public SpiderService() {
         treeSpider = new TreeSpider(new DetailsStorageHandler());
     }
 
+    /**
+     * Recursively crawls a given url and returns a JSON response with contents of the crawl.
+     *
+     * @param url The url to crawl.
+     * @return JSON response with the contents of the crawl.
+     */
     @GET
     @Path("crawl/{url}")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response crawlWebsite(@PathParam("url") String url) {
         try {
-            //Make the url a proper URL
+            // Make the url a proper URL since passing 'https://' in the API would be considered a new path
+            // due to the usage of '//'.
             String fullURL = "http://" + url + "/";
-            //Fetch SearchResult
             SearchResult searchResult = this.treeSpider.search(fullURL, null);
-            //Convert To JSON
             String json = new GsonBuilder().setPrettyPrinting().create().toJson(searchResult);
 
             return Response.ok(json).build();
@@ -43,17 +57,24 @@ public class SpiderService {
         }
     }
 
+    /**
+     * Recursively crawls a given url for the object with the specified title and returns a JSON response with contents
+     * of the crawl.
+     *
+     * @param url       The url to crawl.
+     * @param titleName The title to search for.
+     * @return JSON response with the contents of the crawl.
+     */
     @GET
     @Path("crawl/{url}/{title}")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response crawlWebsiteForItem(@PathParam("url") String url, @PathParam("title") String titleName) {
         try {
-            //Make the url a proper URL
+            // Make the url a proper URL since passing 'http://' in the API would be considered a new path
+            // due to the usage of '//'.
             String fullURL = "http://" + url + "/";
-            //Fetch SearchResult
             SearchResult searchResult = this.treeSpider.search(fullURL, titleName.isEmpty() ? null : titleName);
-            //Convert To JSON
             String json = new GsonBuilder().setPrettyPrinting().create().toJson(searchResult);
 
             return Response.ok(json).build();
@@ -64,6 +85,12 @@ public class SpiderService {
         }
     }
 
+    /**
+     * Retrieves the details about a specific crawl as a JSON response.
+     *
+     * @param id The identifier of the crawl to retrieve details for.
+     * @return JSON response with the contents of the details.
+     */
     @GET
     @Path("details/{id}")
     @Consumes(MediaType.TEXT_PLAIN)
@@ -76,7 +103,7 @@ public class SpiderService {
                     .entity(String.format("No crawl details found for ID '%d'.", id))
                     .build();
         }
-        //Convert To JSON
+
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(searchDetails.get());
 
         return Response.status(Response.Status.OK).entity(json).build();
