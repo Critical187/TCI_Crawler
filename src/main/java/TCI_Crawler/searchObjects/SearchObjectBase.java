@@ -1,6 +1,6 @@
 package TCI_Crawler.searchObjects;
 
-public abstract class SearchObjectBase implements Comparable {
+public abstract class SearchObjectBase implements Comparable<SearchObjectBase> {
 
     private final String genre;
     private final int year;
@@ -31,9 +31,8 @@ public abstract class SearchObjectBase implements Comparable {
         return name;
     }
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(SearchObjectBase other) {
         int value = 0;
-        SearchObjectBase other = (SearchObjectBase)o;
         value = this.name.compareTo(other.name);
         return value;
     }
