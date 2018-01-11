@@ -52,7 +52,7 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
     }
 
     public List<Node> getChildren() {
-        return children.stream().collect(Collectors.toCollection(ArrayList::new));
+        return new ArrayList<>(children);
     }
 
     public void setChildren(List<Node> children) {
@@ -76,18 +76,12 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
     //if data is missing: it checks if the nodes are the same using the hashcodes.
     @Override
     public int compareTo(Node<T> otherNode) {
-        int value = 0;
-
         if (otherNode.data == null || this.data == null) {
             //nodes with data should go on the left side of a tree
-            value = otherNode.hashCode() - this.hashCode();
-            //if(this.hashCode() == otherNode.hashCode())value = 0;
-            return value;
+            return otherNode.hashCode() - this.hashCode();
         }
 
-        value = this.data.compareTo(otherNode.data);
-
-        return value;
+        return this.data.compareTo(otherNode.data);
     }
 
     @Override

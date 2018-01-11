@@ -2,7 +2,7 @@ package TCI_Crawler.service;
 
 import TCI_Crawler.crawler.TreeSpider;
 import TCI_Crawler.dto.SearchResult;
-import TCI_Crawler.dto.SearchDetails;
+import TCI_Crawler.dto.CrawlDetails;
 import TCI_Crawler.handlers.DetailsStorageHandler;
 import com.google.gson.GsonBuilder;
 
@@ -69,7 +69,7 @@ public class SpiderService {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getDetailsForCrawlID(@PathParam("id") int id) {
-        Optional<SearchDetails> searchDetails = this.treeSpider.getSearchDetails(id);
+        Optional<CrawlDetails> searchDetails = this.treeSpider.getSearchDetails(id);
         if (!searchDetails.isPresent()) {
             return Response
                     .status(Response.Status.NO_CONTENT)
