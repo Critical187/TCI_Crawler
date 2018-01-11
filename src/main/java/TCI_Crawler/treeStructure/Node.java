@@ -90,8 +90,8 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
      * @param childNode The child to add.
      */
     public void addChild(Node childNode) {
-        this.children.add(childNode);
         childNode.parent = this;
+        this.children.add(childNode);
     }
 
     /**
@@ -107,10 +107,10 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
      * @param children The children to set.
      */
     public void setChildren(List<Node> children) {
-        this.children = new TreeSet<>(children);
         for (Node child : children) {
             child.parent = this;
         }
+        this.children = new TreeSet<>(children);
     }
 
     /**
@@ -142,11 +142,23 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
      */
     @Override
     public int compareTo(Node<T> otherNode) {
-        if (otherNode.data == null || this.data == null) {
+        if (otherNode.data == null && this.data == null) {
             //nodes with data should go on the left side of a tree
-            return otherNode.hashCode() - this.hashCode();
+            if (this.hashCode() == otherNode.hashCode())
+                return 0;
+            if (this.hashCode() > otherNode.hashCode())
+                return -1;
+            if (this.hashCode() < otherNode.hashCode())
+                return 1;
         }
-
+        if (this.data == null) {
+            //This node doesn't contain any data so it is less important than the otherNode
+            return 1;
+        }
+        if (otherNode.data == null) {
+            //the other node doesn't contain any data so it this is more important than the other node
+            return -1;
+        }
         return this.data.compareTo(otherNode.data);
     }
 
@@ -157,19 +169,5 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
                 "data=" + data +
                 ", weight=" + weight +
                 '}';
-    }
-
-    /**
-     * @return Gets the hash code of this node.
-     */
-    @Override
-    public int hashCode() {
-        int result = children != null ? children.hashCode() / 245643 : 0;
-        result += (data != null ? data.hashCode() / 4293451 : 0);
-        result += (visited ? 1 : 0);
-        result += (parent != null ? parent.hashCode() / 634351324 : 0);
-        result += weight;
-        result = 21 * result + result;
-        return Math.abs(result);
     }
 }

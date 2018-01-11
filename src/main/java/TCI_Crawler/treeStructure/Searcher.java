@@ -66,8 +66,17 @@ public class Searcher {
      * @return Gets the amount of pages explored.
      */
     public int getPagesExplored() {
-        return pagesExplored;
+        return this.pagesExplored;
     }
+
+
+    /**
+     * @return Gets the root node of this searcher.
+     */
+    public Node<SearchObjectBase> getRootNode() {
+        return this.rootNode;
+    }
+
 
     /**
      * Recursively uses the DFS algorithm to search, starting from the root node.
@@ -189,11 +198,14 @@ public class Searcher {
             }
         } else {
             // Alright our Node already exists but we can check if the path towards this node is shorter now.
+            // NVM this is the Root. ABORT (Wait maybe a second ROOT!)
+            if (parent == null) {
+                return;
+            }
             // Get that oldNode because we need to do some checks
-            Node<SearchObjectBase> oldNode = this.listOfNodes.get(uniqueURL);
+            Node<SearchObjectBase> oldNode = listOfNodes.get(uniqueURL);
             // Check if the parent is higher up the tree than node
-            if (parent.getWeight() < oldNode.getWeight()) {
-                // If that's the case we detach from our old parent and this parent becomes our new parent
+            if (parent.getWeight() < oldNode.getWeight()) { //If that's the case we detach from our old parent and this parent becomes our new parent
                 oldNode.getParent().removeChild(oldNode);
                 oldNode.setWeight(parent.getWeight() + 1);
                 parent.addChild(oldNode);
@@ -227,7 +239,7 @@ public class Searcher {
             }
             row += "\u2600";
             row += (node.getData() != null) ?
-                    ( node.getData()).getName() + " " : " " + node.getWeight() + " ";
+                    (node.getData()).getName() + " " : " " + node.getWeight() + " ";
             for (Node child : node.getChildren())
                 queue.add(child);
         }
