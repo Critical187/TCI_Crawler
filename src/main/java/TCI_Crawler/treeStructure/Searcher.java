@@ -197,7 +197,6 @@ public class Searcher {
                 oldNode.getParent().removeChild(oldNode);
                 parent.addChild(oldNode);
                 oldNode.setWeight(parent.getWeight() + 1);
-
             }
         }
     }
@@ -210,6 +209,4 @@ public class Searcher {
     protected SpiderLegConnection createSpiderLegConnection() {
         return new SpiderLegConnection();
     }
-
-
 }
