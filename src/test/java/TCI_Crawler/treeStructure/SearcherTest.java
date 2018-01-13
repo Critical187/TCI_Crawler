@@ -17,102 +17,120 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.TreeSet;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
+
 @RunWith(JUnitParamsRunner.class)
 public class SearcherTest {
+
     private Searcher searcher;
     private TreeSet<SearchObjectBase> treeSet;
+
     @Mock
     private SpiderLegConnection spiderLegConnection;
 
-    public static Object[] depthFirstSearchVariables(){
-       SearchObjectBase searchObjectBase = new Book("George","none",2912, "Ultra Space",new String[]{"Jack","Daniels"},"245524rw","Hopkins");
+    public static Object[] depthFirstSearchVariables() {
+        SearchObjectBase searchObjectBase = new Book(
+                "George",
+                "none",
+                2912,
+                "Ultra Space",
+                new String[]{"Jack", "Daniels"},
+                "245524rw",
+                "Hopkins");
+
         return (new Object[][]{
-                {3, 5, null,searchObjectBase, 4 },
-                {3, 5, "George",searchObjectBase, 0},
-                {3, 4, "George",searchObjectBase, 3},
+                {3, 5, null, searchObjectBase, 4},
+                {3, 5, "George", searchObjectBase, 0},
+                {3, 4, "George", searchObjectBase, 3},
                 {3, 5, null, null, 0}
         });
     }
+
     @Before
-    public void setUp(){
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
-        treeSet = new TreeSet<>();
-        searcher = new Searcher(treeSet);
+        this.treeSet = new TreeSet<>();
+        this.searcher = new Searcher(this.treeSet);
     }
 
     /**
      * The Tree should looks like this
-     *                       (RootNode "Root")
-     *                         /       \
-     *       (FirstLevelNode "a1") (EmptyFirstLevelNode "a2")
-     *          /
-     *(SecondLevelNode "b1")
+     * (RootNode "Root")
+     * /       \
+     * (FirstLevelNode "a1") (EmptyFirstLevelNode "a2")
+     * /
+     * (SecondLevelNode "b1")
+     *
      * @throws InvalidCategoryException
      * @throws InvalidSiteException
      */
     @Test
     public void createANodeTree() throws InvalidCategoryException, InvalidSiteException {
-        ArrayList<SearchObjectBase> mockedSearchObjects = new ArrayList();
+        ArrayList<SearchObjectBase> mockedSearchObjects = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-           mockedSearchObjects.add(mock(SearchObjectBase.class));
+            mockedSearchObjects.add(mock(SearchObjectBase.class));
         }
-       searcher = Mockito.spy(new Searcher(treeSet));
-       doReturn(spiderLegConnection).when(searcher).createSpiderLegConnection();
+        this.searcher = Mockito.spy(new Searcher(this.treeSet));
+        doReturn(this.spiderLegConnection).when(this.searcher).createSpiderLegConnection();
 
-       when(spiderLegConnection.crawlAndGather("Root"))
-               .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(0),new ArrayList<>(Arrays.asList(new String[]{"a1","a2",}))));
-       when(spiderLegConnection.crawlAndGather("a1"))
-                .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(1),new ArrayList<String>(Arrays.asList(new String[]{"b1"}))));
-        when(spiderLegConnection.crawlAndGather("b1"))
-                .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(2),new ArrayList<String>(Arrays.asList(new String[]{}))));
-        when(spiderLegConnection.crawlAndGather("a2"))
-                .thenReturn(new SearchObjectWithLinks(null,new ArrayList<String>(Arrays.asList(new String[]{"a1","root"}))));
-        when(spiderLegConnection.crawlAndGather("zzz"))
-                .thenReturn(new SearchObjectWithLinks(null,new ArrayList<String>(Arrays.asList(new String[]{"ccc"}))));
-        when(spiderLegConnection.crawlAndGather("zzz"))
-                .thenReturn(new SearchObjectWithLinks(null,new ArrayList<String>(Arrays.asList(new String[]{"a2"}))));
-        searcher.makeNode(null, "Root");
+        when(this.spiderLegConnection.crawlAndGather("Root"))
+                .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(0), new ArrayList<>(Arrays.asList("a1", "a2"))));
+        when(this.spiderLegConnection.crawlAndGather("a1"))
+                .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(1), new ArrayList<>(Collections.singletonList("b1"))));
+        when(this.spiderLegConnection.crawlAndGather("b1"))
+                .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(2), new ArrayList<>(Arrays.asList(new String[]{}))));
+        when(this.spiderLegConnection.crawlAndGather("a2"))
+                .thenReturn(new SearchObjectWithLinks(null, new ArrayList<>(Arrays.asList("a1", "root"))));
+        when(this.spiderLegConnection.crawlAndGather("zzz"))
+                .thenReturn(new SearchObjectWithLinks(null, new ArrayList<>(Arrays.asList("ccc"))));
+        when(this.spiderLegConnection.crawlAndGather("zzz"))
+                .thenReturn(new SearchObjectWithLinks(null, new ArrayList<>(Arrays.asList("a2"))));
+        this.searcher.makeNode(null, "Root");
 
-        Node<SearchObjectBase> rootNode = searcher.rootNode;
+        Node<SearchObjectBase> rootNode = this.searcher.rootNode;
         Node<SearchObjectBase> a1Node = rootNode.getChildren().get(0);
         Node<SearchObjectBase> b1Node = a1Node.getChildren().get(0);
         Node<SearchObjectBase> a2Node = rootNode.getChildren().get(1);
         //check if RootNode has the mocked object
-        assertEquals(rootNode.getData(),mockedSearchObjects.get(0));
+        assertEquals(rootNode.getData(), mockedSearchObjects.get(0));
         //check if RootNode has children so that it actually has a tree
-        assertTrue(rootNode.getChildren().size()>0);
+        assertTrue(rootNode.getChildren().size() > 0);
         //check if the first level child holds the mocked object
-        assertEquals(a1Node.getData(),mockedSearchObjects.get(1));
+        assertEquals(a1Node.getData(), mockedSearchObjects.get(1));
         //check if the first level child has children
-        assertTrue(a1Node.getChildren().size()>0);
+        assertTrue(a1Node.getChildren().size() > 0);
         //check if the second level child has the object
-        assertEquals(b1Node.getData(),mockedSearchObjects.get(2));
+        assertEquals(b1Node.getData(), mockedSearchObjects.get(2));
         //check if the other first level child holds no object
-        assertEquals(a2Node.getData(),null);
+        assertEquals(a2Node.getData(), null);
 
     }
 
     /**
      * The Tree looks like this
-     *                       (Node 0
-     *                      /       \
-     *                  (Node 1)  (Node 2)
-     *                    / \
-     *             (Node 3) (Node 4 Lucky Data)
+     * (Node 0
+     * /       \
+     * (Node 1)  (Node 2)
+     * / \
+     * (Node 3) (Node 4 Lucky Data)
      */
     @Test
     @Parameters(method = "depthFirstSearchVariables")
-    public void depthFirstSearch(int searchDepth, int pagesExplored, String searchTerm, SearchObjectBase wantedSearchObject, int nodeNumberToAttach){
+    public void depthFirstSearch(
+            int searchDepth,
+            int pagesExplored,
+            String searchTerm,
+            SearchObjectBase wantedSearchObject,
+            int nodeNumberToAttach) {
         //make the mock objects
-        ArrayList<SearchObjectBase> mockedSearchObjects = new ArrayList();
+        ArrayList<SearchObjectBase> mockedSearchObjects = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            mockedSearchObjects.add(new Book("Z"+ RandomStringUtils.random(33),
+            mockedSearchObjects.add(new Book("Z" + RandomStringUtils.random(33),
                     RandomStringUtils.random(33),
                     2912,
                     RandomStringUtils.random(33),
@@ -131,39 +149,32 @@ public class SearcherTest {
 
         nodes[1].setChildren((Arrays.asList((Node[]) Arrays.copyOfRange(nodes, 3, 5))));
         nodes[0].setWeight(0);
-        searcher = Mockito.spy(new Searcher(treeSet));
-        searcher.rootNode = nodes[0];
-        searcher.setTitleToSearchFor(searchTerm);
-        searcher.depthFirstSearch();
-        assertEquals("the parameters where " +searchTerm +" "+pagesExplored+" "+searchTerm +" "+ wantedSearchObject +" " + nodeNumberToAttach
-                , searchDepth, searcher.getDepth());
-        assertEquals(pagesExplored, searcher.getPagesExplored());
-        if(wantedSearchObject != null) {
-            assertTrue(treeSet.contains(wantedSearchObject));
+        this.searcher = Mockito.spy(new Searcher(treeSet));
+        this.searcher.rootNode = nodes[0];
+        this.searcher.setTitleToSearchFor(searchTerm);
+        this.searcher.depthFirstSearch();
+        assertEquals(searchDepth, this.searcher.getDepth());
+        assertEquals(pagesExplored, this.searcher.getPagesExplored());
+        if (wantedSearchObject != null) {
+            assertTrue(this.treeSet.contains(wantedSearchObject));
         }
-
     }
+
     @Test
-    public void spiderIsCleaned(){
-        searcher.rootNode = new Node<>(mock(SearchObjectBase.class));
-        searcher.clear();
-        assertEquals(null,searcher.rootNode);
-        /*
-        this.depth = -1;
-        this.tempDepth = 0;
-        this.titleToSearchFor = null;
-        this.listOfNodes.clear();
-        this.pagesExplored = 0;
-        this.objectFound = false;
-         */
-        assertEquals(-1, searcher.getDepth());
+    public void spiderIsCleaned() {
+        this.searcher.rootNode = new Node<>(mock(SearchObjectBase.class));
+        this.searcher.clear();
+
+        assertEquals(null, this.searcher.rootNode);
+        assertEquals(-1, this.searcher.getDepth());
         //assertEquals(0, searcher.tempDepth);
-        assertEquals(0,searcher.getPagesExplored());
-       // assertEquals(0,searcher.listOfNodes.size());
+        assertEquals(0, this.searcher.getPagesExplored());
+        // assertEquals(0,searcher.listOfNodes.size());
         //assertFalse(searcher.objectFound);
     }
+
     @Test
-    public void canCreateSpiderLegConnection(){
-        assertTrue(searcher.createSpiderLegConnection()!= null);
+    public void canCreateSpiderLegConnection() {
+        assertTrue(this.searcher.createSpiderLegConnection() != null);
     }
 }
