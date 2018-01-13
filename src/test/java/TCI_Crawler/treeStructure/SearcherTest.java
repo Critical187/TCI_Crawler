@@ -3,10 +3,15 @@ package TCI_Crawler.treeStructure;
 import TCI_Crawler.crawler.SpiderLegConnection;
 import TCI_Crawler.exceptions.InvalidCategoryException;
 import TCI_Crawler.exceptions.InvalidSiteException;
+import TCI_Crawler.searchObjects.Book;
 import TCI_Crawler.searchObjects.SearchObjectBase;
 import TCI_Crawler.searchObjects.SearchObjectWithLinks;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import org.apache.commons.lang.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;;
@@ -17,15 +22,21 @@ import java.util.TreeSet;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
-
+@RunWith(JUnitParamsRunner.class)
 public class SearcherTest {
     private Searcher searcher;
     private TreeSet<SearchObjectBase> treeSet;
     @Mock
     private SpiderLegConnection spiderLegConnection;
-    @Mock
-    private SearchObjectBase searchObjectBase;
 
+    public static Object[] depthFirstSearchVariables(){
+       SearchObjectBase searchObjectBase = new Book("George","none",2912, "Ultra Space",new String[]{"Jack","Daniels"},"245524rw","Hopkins");
+        return (new Object[][]{
+                {3, 5, null,searchObjectBase, 4 },
+                {1, 1, "George",searchObjectBase, 0},
+                {3, 5, null, null, 0}
+        });
+    }
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
@@ -82,6 +93,49 @@ public class SearcherTest {
         assertEquals(b1Node.getData(),mockedSearchObjects.get(2));
         //check if the other first level child holds no object
         assertEquals(a2Node.getData(),null);
+
+    }
+
+    /**
+     * The Tree looks like this
+     *                       (Node 0
+     *                      /       \
+     *                  (Node 1)  (Node 2)
+     *                    / \
+     *             (Node 3) (Node 4 Lucky Data)
+     */
+    @Test
+    @Parameters(method = "depthFirstSearchVariables")
+    public void depthFirstSearch(int searchDepth, int pagesExplored, String searchTerm, SearchObjectBase wantedSearchObject, int nodeNumberToAttach){
+        //make the mock objects
+        ArrayList<SearchObjectBase> mockedSearchObjects = new ArrayList();
+        for (int i = 0; i < 5; i++) {
+            mockedSearchObjects.add(new Book("Z"+ RandomStringUtils.random(33),
+                    RandomStringUtils.random(33),
+                    2912,
+                    RandomStringUtils.random(33),
+                    new String[]{RandomStringUtils.random(33),
+                            RandomStringUtils.random(33)},
+                    RandomStringUtils.random(33),
+                    RandomStringUtils.random(33)));
+        }
+        //make the tree
+        Node[] nodes = new Node[5];
+        for (int i = 0; i < 5; i++) {
+            nodes[i] = new Node<>(mockedSearchObjects.get(i));
+        }
+        nodes[nodeNumberToAttach] = new Node<>(wantedSearchObject);
+        nodes[0].setChildren((Arrays.asList((Node[]) Arrays.copyOfRange(nodes, 1, 3))));
+
+        nodes[1].setChildren((Arrays.asList((Node[]) Arrays.copyOfRange(nodes, 3, 5))));
+        nodes[0].setWeight(0);
+        searcher = Mockito.spy(new Searcher(treeSet));
+        searcher.rootNode = nodes[0];
+        searcher.setTitleToSearchFor(searchTerm);
+        searcher.depthFirstSearch();
+        assertEquals(searchDepth, searcher.getDepth());
+        assertEquals(pagesExplored, searcher.getPagesExplored());
+        assertTrue(treeSet.contains(wantedSearchObject));
 
     }
 }
