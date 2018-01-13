@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.TreeSet;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 @RunWith(JUnitParamsRunner.class)
@@ -33,7 +34,8 @@ public class SearcherTest {
        SearchObjectBase searchObjectBase = new Book("George","none",2912, "Ultra Space",new String[]{"Jack","Daniels"},"245524rw","Hopkins");
         return (new Object[][]{
                 {3, 5, null,searchObjectBase, 4 },
-                {1, 1, "George",searchObjectBase, 0},
+                {3, 5, "George",searchObjectBase, 0},
+                {3, 4, "George",searchObjectBase, 3},
                 {3, 5, null, null, 0}
         });
     }
@@ -133,9 +135,35 @@ public class SearcherTest {
         searcher.rootNode = nodes[0];
         searcher.setTitleToSearchFor(searchTerm);
         searcher.depthFirstSearch();
-        assertEquals(searchDepth, searcher.getDepth());
+        assertEquals("the parameters where " +searchTerm +" "+pagesExplored+" "+searchTerm +" "+ wantedSearchObject +" " + nodeNumberToAttach
+                , searchDepth, searcher.getDepth());
         assertEquals(pagesExplored, searcher.getPagesExplored());
-        assertTrue(treeSet.contains(wantedSearchObject));
+        if(wantedSearchObject != null) {
+            assertTrue(treeSet.contains(wantedSearchObject));
+        }
 
+    }
+    @Test
+    public void spiderIsCleaned(){
+        searcher.rootNode = new Node<>(mock(SearchObjectBase.class));
+        searcher.clear();
+        assertEquals(null,searcher.rootNode);
+        /*
+        this.depth = -1;
+        this.tempDepth = 0;
+        this.titleToSearchFor = null;
+        this.listOfNodes.clear();
+        this.pagesExplored = 0;
+        this.objectFound = false;
+         */
+        assertEquals(-1, searcher.getDepth());
+        //assertEquals(0, searcher.tempDepth);
+        assertEquals(0,searcher.getPagesExplored());
+       // assertEquals(0,searcher.listOfNodes.size());
+        //assertFalse(searcher.objectFound);
+    }
+    @Test
+    public void canCreateSpiderLegConnection(){
+        assertTrue(searcher.createSpiderLegConnection()!= null);
     }
 }

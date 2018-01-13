@@ -140,6 +140,7 @@ public class Searcher {
      * Cleans up the search so that another round without using values from the previous search can be performed.
      */
     public void clear() {
+        this.rootNode = null;
         this.depth = -1;
         this.tempDepth = 0;
         this.titleToSearchFor = null;

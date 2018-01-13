@@ -19,21 +19,21 @@ public class NodeTest {
     private Node<String>[] nodes;
 
     public static Object[] comparableNodes() {
-        Node<String> node1 =  new Node<>("AA");
-        Node<String> node2 = Mockito.spy(new Node<>(null));
-        doReturn(8000).when(node2).hashCode();
+        Node<String> node1 = new Node<>("AA");
+        Node<String> node2 = new Node<>(null);
         Node<String> node3 = new Node<>("BB");
-        Node<String> node4 = Mockito.spy(new Node<>(null));
+        Node<String> node4 = new Node<>(null);
 
-        doReturn(9000).when(node4).hashCode();
+        int valueBetweenNode2AndNode4 = (node2.hashCode()-node4.hashCode()<0)?1:-1;
+        int valueBetweenNode4AndNode2 = -valueBetweenNode2AndNode4;
         return (new Object[][]{
                 {node1, 0, node1},
                 {node1, -1, node2},
                 {node1, -1, node3},
                 {node2, 1, node1},
                 {node2, 0, node2},
-                {node2, -1, node4},
-                {node4, 1, node2},
+                {node2, valueBetweenNode2AndNode4, node4},
+                {node4, valueBetweenNode4AndNode2, node2},
                 {node3, -1, node4}
         });
     }
