@@ -55,7 +55,7 @@ public class SpiderLegConnection {
                 throw new InvalidSiteException(String.format("Website at URL '%s' does not contain HTML.", url));
             }
             if (connection.response().statusCode() != HttpStatus.SC_OK) {
-                throw new InvalidSiteException(String.format("Could not establish connection to URL '%s'.", url));
+                throw new InvalidSiteException("Status code of returned request is different than '200'");
             }
 
             return this.spiderLeg.getObjectAndLinks(htmlDocument);

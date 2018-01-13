@@ -55,7 +55,7 @@ public class SearcherTest {
      * @throws InvalidSiteException
      */
     @Test
-    public void CreateANodeTree() throws InvalidCategoryException, InvalidSiteException {
+    public void createANodeTree() throws InvalidCategoryException, InvalidSiteException {
         ArrayList<SearchObjectBase> mockedSearchObjects = new ArrayList();
         for (int i = 0; i < 3; i++) {
            mockedSearchObjects.add(mock(SearchObjectBase.class));
