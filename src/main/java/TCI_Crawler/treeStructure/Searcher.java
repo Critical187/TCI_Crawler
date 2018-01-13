@@ -193,7 +193,7 @@ public class Searcher {
             // Get that oldNode because we need to do some checks
             Node<SearchObjectBase> oldNode = listOfNodes.get(uniqueURL);
             // Check if the parent is higher up the tree than node
-            if (parent.getWeight() - oldNode.getWeight() >= 2) { //If that's the case we detach from our old parent and this parent becomes our new parent
+            if ( (oldNode.getWeight() - 1) > parent.getWeight()   ) { //If that's the case we detach from our old parent and this parent becomes our new parent
                 oldNode.getParent().removeChild(oldNode);
                 parent.addChild(oldNode);
                 oldNode.setWeight(parent.getWeight() + 1);
