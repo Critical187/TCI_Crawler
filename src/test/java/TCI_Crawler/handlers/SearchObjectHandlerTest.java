@@ -46,7 +46,7 @@ public class SearchObjectHandlerTest {
         Music expectedObject = new Music(
                 "Beethoven: Complete Symphonies",
                 "Classical",
-                2012,
+                2013,
                 "CD",
                 "Ludwig van Beethoven");
 
