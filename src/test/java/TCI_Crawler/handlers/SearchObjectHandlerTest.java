@@ -15,6 +15,9 @@ import org.jsoup.nodes.Document;
 import org.junit.rules.ExpectedException;
 import org.mockito.*;
 import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.equalTo;
+
 
 public class SearchObjectHandlerTest {
 
@@ -82,7 +85,7 @@ public class SearchObjectHandlerTest {
                 new String[]{"Tom Hanks", "Rebecca Williams", "Sally Field"});
 
         // Assert that both objects are of the same class.
-        assertEquals(expectedObject.getClass(), actualObject.getClass());
+        assertThat(expectedObject.getClass(),is(equalTo(actualObject.getClass())));
         // Assert that both objects have the exact same properties.
         assertThat(expectedObject, samePropertyValuesAs(actualObject));
     }
@@ -113,7 +116,7 @@ public class SearchObjectHandlerTest {
                 "Prentice Hall");
 
         // Assert that both objects are of the same class.
-        assertEquals(expectedObject.getClass(), actualObject.getClass());
+        assertThat(expectedObject.getClass(),is(equalTo(actualObject.getClass())));
         // Assert that both objects have the exact same properties.
         assertThat(expectedObject, samePropertyValuesAs(actualObject));
     }
