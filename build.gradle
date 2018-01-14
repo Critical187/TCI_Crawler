@@ -20,7 +20,7 @@ apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.p
 gretty {
     integrationTestTask = 'integrationTest'
     jvmArgs = ['-Djava.net.preferIPv4Stack=true']
-    jvmArgs.add('-Dorg.eclipse.jetty.annotations.maxWait= 120')
+    jvmArgs += '-Dorg.eclipse.jetty.annotations.maxWait= 120'
 
 }
 

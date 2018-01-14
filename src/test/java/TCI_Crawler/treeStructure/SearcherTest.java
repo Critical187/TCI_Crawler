@@ -35,7 +35,7 @@ public class SearcherTest {
         return (new Object[][]{
                 {3, 5, null,searchObjectBase, 4 },
                 {3, 5, "George",searchObjectBase, 0},
-                {3, 4, "George",searchObjectBase, 3},
+                {3, 3, "George",searchObjectBase, 3},
                 {3, 5, null, null, 0}
         });
     }
@@ -68,15 +68,11 @@ public class SearcherTest {
        when(spiderLegConnection.crawlAndGather("Root"))
                .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(0),new ArrayList<>(Arrays.asList(new String[]{"a1","a2",}))));
        when(spiderLegConnection.crawlAndGather("a1"))
-                .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(1),new ArrayList<String>(Arrays.asList(new String[]{"b1"}))));
+                .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(1),new ArrayList<>(Arrays.asList(new String[]{"a2","b1"}))));
         when(spiderLegConnection.crawlAndGather("b1"))
-                .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(2),new ArrayList<String>(Arrays.asList(new String[]{}))));
+                .thenReturn(new SearchObjectWithLinks(mockedSearchObjects.get(2),new ArrayList<>(Arrays.asList(new String[]{}))));
         when(spiderLegConnection.crawlAndGather("a2"))
-                .thenReturn(new SearchObjectWithLinks(null,new ArrayList<String>(Arrays.asList(new String[]{"a1","root"}))));
-        when(spiderLegConnection.crawlAndGather("zzz"))
-                .thenReturn(new SearchObjectWithLinks(null,new ArrayList<String>(Arrays.asList(new String[]{"ccc"}))));
-        when(spiderLegConnection.crawlAndGather("zzz"))
-                .thenReturn(new SearchObjectWithLinks(null,new ArrayList<String>(Arrays.asList(new String[]{"a2"}))));
+                .thenReturn(new SearchObjectWithLinks(null,new ArrayList<>(Arrays.asList(new String[]{"root"}))));
         searcher.makeNode(null, "Root");
 
         Node<SearchObjectBase> rootNode = searcher.rootNode;
@@ -112,7 +108,7 @@ public class SearcherTest {
         //make the mock objects
         ArrayList<SearchObjectBase> mockedSearchObjects = new ArrayList();
         for (int i = 0; i < 5; i++) {
-            mockedSearchObjects.add(new Book("Z"+ RandomStringUtils.random(33),
+            mockedSearchObjects.add(new Book("Z"+ i,
                     RandomStringUtils.random(33),
                     2912,
                     RandomStringUtils.random(33),
