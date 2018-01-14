@@ -51,6 +51,6 @@ public class DetailsStorageHandler {
      * @return The next available unique identifier.
      */
     public int getNextId() {
-        id++; return id;
+        return ++this.id;
     }
 }
