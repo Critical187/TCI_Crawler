@@ -8,6 +8,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.*;
 import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.equalTo;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -75,7 +78,7 @@ public class LinksHandlerTest {
         List<String> validLinks = this.links.getValidLinks(this.htmlDocument);
 
         // Assert that the array size of the retrieved links is as expected.
-        assertEquals(this.expectedArraySize, validLinks.size());
+        assertThat(this.expectedArraySize, is(equalTo(validLinks.size())));
         // Assert that the retrieved links are equal to the expected links.
         assertArrayEquals(this.expectedLinks.toArray(), validLinks.toArray());
         // Assert that there are no forbidden links in the retrieved links.
