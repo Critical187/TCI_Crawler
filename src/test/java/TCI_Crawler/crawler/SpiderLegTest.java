@@ -9,6 +9,7 @@ import TCI_Crawler.searchObjects.SearchObjectWithLinks;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.mockito.Mockito.*;
@@ -17,12 +18,15 @@ import static org.junit.Assert.*;
 public class SpiderLegTest {
 
     @Test
-    public void testGetObjectAndLinksVerifyHandlersCalled() throws InvalidSiteException, InvalidCategoryException {
+    public void testGetObjectAndLinksVerifyWithSpyThatHandlersCalled() throws InvalidSiteException, InvalidCategoryException {
         Document htmlDoc = Jsoup.parse("<html></html>");
-        LinksHandler linksHandler = mock(LinksHandler.class);
-        SearchObjectHandler searchObjectHandler = mock(SearchObjectHandler.class);
+        // Create a spy for both handlers and pass them to the SpiderLeg.
+        LinksHandler linksHandler = Mockito.spy(LinksHandler.class);
+        SearchObjectHandler searchObjectHandler = Mockito.spy(SearchObjectHandler.class);
         SpiderLeg leg = new SpiderLeg(linksHandler, searchObjectHandler);
         leg.getObjectAndLinks(htmlDoc);
+
+        // Assert by using both spies that each method has been called exactly once.
         verify(linksHandler, times(1)).getValidLinks(htmlDoc);
         verify(searchObjectHandler, times(1)).getSearchObjects(htmlDoc);
     }
@@ -40,8 +44,8 @@ public class SpiderLegTest {
                 "<tr><th>Format</th><td>DVD</td></tr>" +
                 "<tr><th>Year</th><td>1994</td></tr>" +
                 "<tr><th>Director</th><td>Robert Zemeckis</td></tr>" +
-                "<tr><th>Writers</th><td>Winston Groom,Eric Roth</td></tr>" +
-                "<tr><th>Stars</th><td>Tom Hanks,Rebecca Williams,Sally Field</td></tr>" +
+                "<tr><th>Writers</th><td>Winston Groom, Eric Roth</td></tr>" +
+                "<tr><th>Stars</th><td>Tom Hanks, Rebecca Williams, Sally Field</td></tr>" +
                 "</table></div></body></html>";
         Document htmlDocument = Jsoup.parse(htmlString);
         SpiderLeg leg = new SpiderLeg(new LinksHandler(), new SearchObjectHandler());
