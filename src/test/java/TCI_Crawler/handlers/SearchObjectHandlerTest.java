@@ -109,7 +109,7 @@ public class SearchObjectHandlerTest {
         Book expectedObject = new Book(
                 "Clean Code: A Handbook of Agile Software Craftsmanship",
                 "Tech",
-                2008,
+                2009,
                 "Ebook",
                 new String[]{"Robert C. Martin"},
                 "978-0132350884",
